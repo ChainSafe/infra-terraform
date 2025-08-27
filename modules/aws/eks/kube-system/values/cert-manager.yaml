@@ -1,0 +1,52 @@
+global:
+  rbac:
+    create: true
+  leaderElection:
+    namespace: ${namespace}
+  nodeSelector: &nodeSelector
+    nodegroup: default
+  tolerations: &tolerations
+    - key: CriticalAddonsOnly
+      operator: Exists
+
+crds:
+  enabled: true
+nodeSelector: *nodeSelector
+tolerations: *tolerations
+resources:
+  requests:
+    cpu: 100m
+    memory: 64Mi
+  limits:
+    cpu: 200m
+    memory: 150Mi
+webhook:
+  nodeSelector: *nodeSelector
+  tolerations: *tolerations
+  resources:
+    requests:
+      cpu: 100m
+      memory: 32Mi
+    limits:
+      cpu: 200m
+      memory: 64Mi
+cainjector:
+  nodeSelector: *nodeSelector
+  tolerations: *tolerations
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 256Mi
+startupapicheck:
+  nodeSelector: *nodeSelector
+  tolerations: *tolerations
+  resources:
+    requests:
+      cpu: 100m
+      memory: 32Mi
+    limits:
+      cpu: 200m
+      memory: 64Mi

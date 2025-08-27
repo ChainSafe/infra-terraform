@@ -1,0 +1,11 @@
+quiet: true
+format: table
+exit-code: 1
+severity:
+  - HIGH
+  - CRITICAL
+  - MEDIUM
+scan:
+  skip-dirs:
+    - ".terraform"
+    - "default-values"

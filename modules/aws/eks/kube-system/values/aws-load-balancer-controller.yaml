@@ -1,0 +1,18 @@
+region: "${region}"
+clusterName: ${cluster}
+vpcTags:
+  Name: main
+
+enableCertManager: true
+enableServiceMutatorWebhook: false
+serviceAccount:
+  create: true
+  name: ${sa_name}
+  annotations:
+    eks.amazonaws.com/role-arn: ${sa_iam_role_arn}
+nodeSelector:
+  nodegroup: default
+tolerations:
+  - key: CriticalAddonsOnly
+    operator: Exists
+defaultTargetType: ip

@@ -1,0 +1,40 @@
+nodeSelector:
+  nodegroup: default
+tolerations:
+  - key: CriticalAddonsOnly
+    operator: Exists
+provider: cloudflare
+cloudflare:
+  secretName: ${cf_secret_name}
+
+domainFilters:
+%{~ for domain in include_domains }
+- ${domain}
+%{~ endfor }
+
+annotationFilter: "${annotation_filter}"
+serviceTypeFilter:
+  - LoadBalancer
+  - ExternalName
+
+registry: "txt"
+policy: upsert-only
+interval: "5m"
+triggerLoopOnEvent: true
+managedRecordTypesFilters:
+  - CNAME
+  - TXT
+txtOwnerId: "/eks/${cluster}"
+
+containerSecurityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  capabilities:
+    drop: ["ALL"]
+
+logLevel: info
+logFormat: json
+metrics:
+  enabled: true
+  serviceMonitor:
+    enabled: false

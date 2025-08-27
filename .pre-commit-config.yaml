@@ -1,0 +1,60 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: mixed-line-ending
+        args: [ --fix=lf ]
+      - id: check-merge-conflict
+      - id: end-of-file-fixer
+      - id: check-added-large-files
+      - id: detect-aws-credentials
+        args: [ --allow-missing-credentials ]
+
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.100.0
+    hooks:
+      - id: terraform_docs
+        name: Generate terraform documentation.
+        files: (variables.tf)$
+        args:
+          - --args=--config=.terraform-docs.yml
+          - --hook-config=--create-file-if-not-exist=true
+
+      - id: terraform_fmt
+        name: Format terraform files.
+        files: (\.tf)$
+
+      - id: terragrunt_fmt
+        name: Format HCL files.
+        files: (\.hcl)$
+
+      - id: terraform_tflint
+        name: Terraform validate with TFLint.
+        exclude: (^\.global/|examples/|projects/)
+        args:
+          - --hook-config=--delegate-chdir
+          - >
+            --args=
+              --config=__GIT_WORKING_DIR__/.tflint.hcl
+
+      - id: terraform_trivy
+        name: Terraform validate with Trivy.
+        types: [ terraform ]
+        args:
+          - >
+            --args=
+              --config=__GIT_WORKING_DIR__/.trivy.yml
+              --ignorefile=__GIT_WORKING_DIR__/.trivyignore.yaml
+              --tf-exclude-downloaded-modules
+
+      - id: terraform_checkov
+        name: Terraform validate with checkov
+        types: [ terraform ]
+        args:
+          - >
+            --args=
+              --config-file __GIT_WORKING_DIR__/.checkov.yml
+#      - id: tfupdate
+#        name: Autoupdate Terraform versions
+#        types: [ terraform ]

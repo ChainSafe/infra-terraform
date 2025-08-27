@@ -1,0 +1,26 @@
+apiVersion: karpenter.k8s.aws/v1
+kind: EC2NodeClass
+metadata:
+  name: al2023
+  annotations:
+    helm.sh/resource-policy: "keep"
+spec:
+  amiSelectorTerms:
+    - alias: al2023@latest
+  role: ${node_iam_role_name}
+  subnetSelectorTerms:
+    - tags:
+        karpenter.sh/discovery/${cluster_name}: "1"
+  securityGroupSelectorTerms:
+    - tags:
+        karpenter.sh/discovery/${cluster_name}: "1"
+  tags:
+    %{~ for k,v in tags ~}
+    ${k}: ${v}
+    %{~ endfor ~}
+  detailedMonitoring: false
+  metadataOptions:
+    httpEndpoint: enabled
+    httpProtocolIPv6: disabled
+    httpPutResponseHopLimit: 1
+    httpTokens: required

@@ -1,0 +1,7 @@
+{
+  "modules/aws/eks/cluster": "0.0.0",
+  "modules/aws/eks/external-secrets": "0.0.0",
+  "modules/aws/eks/karpenter": "0.0.0",
+  "modules/aws/eks/kube-system": "0.0.0",
+  "modules/aws/vpc": "0.0.0"
+}

@@ -1,0 +1,25 @@
+{
+  "release-type": "terraform-module",
+  "bump-minor-pre-major": false,
+  "bump-patch-for-minor-pre-major": false,
+  "include-v-in-tag": false,
+  "pull-request-title-pattern": "chore ${scope}: release${component} ${version}",
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "packages": {
+    "modules/aws/eks/cluster": {
+      "package-name": "aws-eks-cluster"
+    },
+    "modules/aws/eks/external-secrets": {
+      "package-name": "aws-eks-external-secrets"
+    },
+    "modules/aws/eks/karpenter": {
+      "package-name": "aws-eks-karpenter"
+    },
+    "modules/aws/eks/kube-system": {
+      "package-name": "aws-eks-kube-system"
+    },
+    "modules/aws/vpc": {
+      "package-name": "aws-vpc"
+    }
+  }
+}

@@ -1,0 +1,48 @@
+vulnerabilities: []
+
+misconfigurations:
+  - id: AVD-AWS-0024 # DynamoDB tables should be protected against accidentally or malicious write/delete actions by ensuring that there is adequate protection.
+  - id: AVD-AWS-0086 # Block Public Acls
+  - id: AVD-AWS-0087 # Block Public Policy
+  - id: AVD-AWS-0089 # Bucket does not have versioning enabled
+  - id: AVD-AWS-0090 # Enable Versioning
+  - id: AVD-AWS-0091 # S3 Access Block should Ignore Public Acl
+  - id: AVD-AWS-0093 # S3 Access block should restrict public bucket to limit access
+  - id: AVD-AWS-0094 # S3 buckets should each define an aws_s3_bucket_public_access_block
+  - id: AVD-AWS-0132 # S3 encryption should use Customer Managed Keys
+  - id: AVD-AWS-0015 # CloudTrail does not use a customer managed key to encrypt the logs.
+
+  - id: AVD-KSV-0032 # Containers should only use images from trusted registries.
+  - id: AVD-KSV-0033 # Containers should only use images from trusted GCR registries.
+  - id: AVD-KSV-0035 # Container images from non-ECR registries should be forbidden.
+  - id: AVD-KSV-0104 # Seccomp policies disabled
+
+  # Node Local DNS configuration
+  - id: AVD-KSV-0001 # A program inside the container can elevate its own privileges and run as root, which might give the program control over the container and node.
+    paths:
+      - "manifests/nodelocaldns/daemonset.yaml"
+  - id: AVD-KSV-0012 # Force the running image to run as a non-root user to ensure least privileges.
+    paths:
+      - "manifests/nodelocaldns/daemonset.yaml"
+  - id: AVD-KSV-0014 # An immutable root file system prevents applications from writing to their local disk. This can limit intrusions, as attackers will not be able to tamper with the file system or write foreign executables to disk.
+    paths:
+      - "manifests/nodelocaldns/daemonset.yaml"
+  # - id: AVD-KSV-0017 # Privileged containers share namespaces with the host system and do not offer any security. They should be used exclusively for system containers that require high privileges.
+  - id: AVD-KSV-0022 # According to pod security standard 'Capabilities', capabilities beyond the default set must not be added.
+    paths:
+      - "manifests/nodelocaldns/daemonset.yaml"
+
+  - id: AVD-KSV-0009 # Sharing the host’s network namespace permits processes in the pod to communicate with processes bound to the host’s loopback adapter.
+    paths:
+      - "manifests/nodelocaldns/daemonset.yaml"
+  - id: AVD-KSV-0023 # According to pod security standard 'HostPath Volumes', HostPath volumes must be forbidden.
+    paths:
+      - "manifests/nodelocaldns/daemonset.yaml"
+  - id: AVD-KSV-0117 # The ports which are lower than 1024 receive and transmit various sensitive and privileged data. Allowing containers to use them can bring serious implications.
+    paths:
+      - "manifests/nodelocaldns/daemonset.yaml"
+  - id: AVD-KSV-0037 # ensure that User pods are not placed in kube-system namespace
+    paths:
+      - "manifests/nodelocaldns/daemonset.yaml"
+      - "manifests/nodelocaldns/service.yaml"
+      - "manifests/nodelocaldns/metrics.yaml"

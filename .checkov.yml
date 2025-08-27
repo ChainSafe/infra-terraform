@@ -1,0 +1,21 @@
+directory:
+  - ./modules
+skip-path:
+  - "**/.terraform/*"
+  - "**/.external_modules/*"
+  - "**/.terragrunt-cache/*"
+  - "examples/"
+framework:
+  - terraform
+quiet: true
+download-external-modules: false
+evaluate-variables: true
+
+hard-fail-on:
+  - HIGH
+  - CRITICAL
+
+output:
+  - cli
+  - json
+  - junitxml

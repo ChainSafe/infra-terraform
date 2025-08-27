@@ -1,0 +1,38 @@
+### Idea files
+.idea/
+*.iml
+
+### Terraform template
+# Local .terraform directories
+**/.terraform/*
+
+# Terraform lock files
+**/.terraform.lock.hcl
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+
+# Crash log files
+crash.log
+
+# Ignore any .tfvars files that are generated automatically for each Terraform run. Most
+# .tfvars files are managed as part of configuration and so should be included in
+# version control.
+*.tfvars
+!secrets.auto.tfvars
+
+# Ignore override files as they are usually used to override resources locally and so
+# are not checked in
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Ignore CLI configuration files
+.terraformrc
+terraform.rc
+
+# Ignore MAC OS files
+.DS_Store
+*.gpg

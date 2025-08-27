@@ -1,0 +1,46 @@
+apiVersion: karpenter.sh/v1
+kind: NodePool
+metadata:
+  name: ${name}
+  annotations:
+    helm.sh/resource-policy: "keep"
+spec:
+  template:
+    metadata:
+      labels:
+        nodegroup: "${name}"
+        "node.kubernetes.io/role": "${name}"
+    spec:
+      nodeClassRef:
+        group: karpenter.k8s.aws
+        kind: EC2NodeClass
+        name: "${node_class}"
+      requirements:
+        - key: "karpenter.k8s.aws/instance-family"
+          operator: In
+          values:
+            %{~ for family in instance_family ~}
+            - "${family}"
+            %{~ endfor ~}
+        - key: "karpenter.k8s.aws/instance-cpu"
+          operator: In
+          values:
+            %{~ for cpu in instance_cpu ~}
+            - "${cpu}"
+            %{~ endfor ~}
+        - key: "karpenter.sh/capacity-type"
+          operator: In
+          values: [ "${capacity_type}" ]
+        - key: "karpenter.k8s.aws/instance-hypervisor"
+          operator: In
+          values: [ "${hypervisor}" ]
+        - key: "karpenter.k8s.aws/instance-generation"
+          operator: Gt
+          values: [ "2" ]
+
+  limits:
+    cpu: ${cpu_limit}
+    memory: ${memory_limit}Gi
+  disruption:
+    consolidationPolicy: WhenEmpty
+    consolidateAfter: 3m
