@@ -1,0 +1,32 @@
+name: Release Terraform Modules
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "modules/**"
+
+env:
+  APP_ID: 1824587 # chainsafe-infra-releaser
+
+jobs:
+  prepare-release:
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+    runs-on: ubuntu-latest
+    steps:
+      # PR should not be triggered by repository's token to trigger GHA for auto approval
+      # so, use github apps token instead of repository token
+      # https://docs.github.com/en/actions/security-guides/automatic-token-authentication#using-the-github_token-in-a-workflow
+      - id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ env.APP_ID }}
+          private-key: ${{ secrets.PRIVATE_KEY }}
+      - id: release
+        uses: googleapis/release-please-action@v4
+        with:
+          token: ${{ steps.app-token.outputs.token }}

@@ -11,23 +11,45 @@ repos:
       - id: detect-aws-credentials
         args: [ --allow-missing-credentials ]
 
+  - repo: local
+    hooks:
+      - id: check-local-sources
+        name: Check for local sources
+        entry: 'source\s+=\s+".*terraform/modules.*"'
+        language: pygrep
+        types: [ text ]
+      - id: encrypt-secrets
+        name: Encrypt secrets.auto.tfvars
+        language: script
+        entry: .pre-commit/sops-encrypt.sh
+        files: secrets\.tfvars\.yaml$
+
+  - repo: https://github.com/gruntwork-io/pre-commit
+    rev: v0.1.30
+    hooks:
+      - id: terragrunt-hclfmt
+        files: (\.hcl)$
+        exclude: (examples/terragrunt\.hcl)$
+
   - repo: https://github.com/antonbabenko/pre-commit-terraform
     rev: v1.100.0
     hooks:
-      - id: terraform_docs
-        name: Generate terraform documentation.
-        files: (variables.tf)$
-        args:
-          - --args=--config=.terraform-docs.yml
-          - --hook-config=--create-file-if-not-exist=true
-
       - id: terraform_fmt
         name: Format terraform files.
-        files: (\.tf)$
+        types: [ terraform ]
 
-      - id: terragrunt_fmt
-        name: Format HCL files.
-        files: (\.hcl)$
+      - id: terraform_validate
+        types: [ terraform ]
+        exclude: (^\.global/|examples/|projects/|.terraform/)
+        args:
+          - --hook-config=--retry-once-with-cleanup=true
+          - --tf-init-args=-upgrade
+
+      - id: terraform_providers_lock
+        types: [ terraform ]
+        exclude: (^\.global/|examples/|projects/|.terraform/)
+        args:
+          - --hook-config=--mode=only-check-is-current-lockfile-cross-platform
 
       - id: terraform_tflint
         name: Terraform validate with TFLint.
@@ -55,6 +77,12 @@ repos:
           - >
             --args=
               --config-file __GIT_WORKING_DIR__/.checkov.yml
+      - id: terraform_docs
+        name: Generate terraform documentation.
+        files: (variables.tf)$
+        args:
+          - --args=--config=.terraform-docs.yml
+          - --hook-config=--create-file-if-not-exist=true
 #      - id: tfupdate
 #        name: Autoupdate Terraform versions
 #        types: [ terraform ]
