@@ -1,9 +1,6 @@
 controller:
   ingressClassResource:
-    name: ingress-nginx-internal
     default: true
-    controllerValue: "k8s.io/ingress-nginx-internal"
-  ingressClass: ingress-nginx-internal
   updateStrategy:
     rollingUpdate:
       maxUnavailable: 1
@@ -23,7 +20,7 @@ controller:
                   values:
                     - controller
             topologyKey: kubernetes.io/hostname
-  replicaCount: 3
+  replicaCount: 2
   metrics:
     enabled: true
     port: 10254
@@ -41,25 +38,14 @@ controller:
     - key: CriticalAddonsOnly
       operator: Exists
   service:
-    external:
-      enabled: true
-      annotations:
-        service.beta.kubernetes.io/aws-load-balancer-type: "nlb-ip"
-        service.beta.kubernetes.io/aws-load-balancer-name: "${cluster_name}-ingress-lb"
-        service.beta.kubernetes.io/aws-load-balancer-backend-protocol: ssl
-        service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
-        service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "ip"
-        external-dns.alpha.kubernetes.io/hostname: "*.${route53_subdomain}.${route53_domain}"
-
-    internal:
-      enabled: false
-      annotations:
-        service.beta.kubernetes.io/aws-load-balancer-type: "nlb-ip"
-        service.beta.kubernetes.io/aws-load-balancer-name: "${cluster_name}-ingress-internal-lb"
-        service.beta.kubernetes.io/aws-load-balancer-backend-protocol: ssl
-        service.beta.kubernetes.io/aws-load-balancer-scheme: "internal"
-        service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "ip"
-        external-dns.alpha.kubernetes.io/hostname: "*.${route53_subdomain}.${route53_domain}"
+    type: NodePort
+#    annotations:
+#      service.beta.kubernetes.io/aws-load-balancer-type: "nlb-ip"
+#      service.beta.kubernetes.io/aws-load-balancer-name: "${cluster_name}-ingress-lb"
+#      service.beta.kubernetes.io/aws-load-balancer-backend-protocol: ssl
+#      service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
+#      service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "ip"
+#      external-dns.alpha.kubernetes.io/hostname: "*.${route53_domain}"
   admissionWebhooks:
     patch:
       nodeSelector:
@@ -67,3 +53,8 @@ controller:
       tolerations:
         - key: CriticalAddonsOnly
           operator: Exists
+defaultBackend:
+  enabled: true
+  image:
+    image: defaultbackend-arm64
+    tag: 1.4

@@ -2,15 +2,15 @@ locals {
   # Authentication
   map_roles = merge(
     var.eks_map_roles,
-    # {
-    #   for role in data.aws_iam_roles.administrators.arns :
-    #   role => {
-    #     is_admin = true
-    #     groups = [
-    #       "admin",
-    #     ]
-    #   }
-    # },
+    {
+      for role in data.aws_iam_roles.administrators.arns :
+      role => {
+        is_admin = true
+        groups = [
+          "admin",
+        ]
+      }
+    },
   )
 }
 

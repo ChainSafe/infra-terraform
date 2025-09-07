@@ -5,7 +5,7 @@ variable "cluster_name" {
 Name of the EKS cluster
 
 Example:
-* eks_cluster_name = "dev"
+* cluster_name = "dev"
 DESC
 
   default = ""
@@ -15,14 +15,14 @@ DESC
 variable "karpenter_version" {
   type        = string
   description = <<DESC
-Version of karpenter/karpenter (defaults "1.6.1")
+Version of karpenter/karpenter (defaults "1.6.3")
 
 https://gallery.ecr.aws/karpenter/karpenter
 
 Example:
 * karpenter_version = "1.7.0"
 DESC
-  default     = "1.6.1"
+  default     = "1.6.3"
 }
 
 variable "node_groups" {
@@ -35,6 +35,7 @@ variable "node_groups" {
         family     = optional(set(string), ["m6"])
         cpu        = optional(set(number), [4])
         is_spot    = optional(bool, true)
+        tainted    = optional(bool, false)
       }
     )
   )
@@ -49,6 +50,7 @@ Options:
 * family - List of instance families (defaults ["m6"])
 * cpu - List of CPU options (defaults [4])
 * is_spot - If the instance is Spot (defaults true)
+* tainted - If the node is Tainted by default (defaults false)
 
 More details:
 https://aws.amazon.com/ec2/instance-types/
@@ -60,6 +62,7 @@ Example:
     family = ["c5"]
     cpu = [4, 8]
     is_spot = false
+    tainted = true
   }
 }
 DESC

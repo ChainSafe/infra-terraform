@@ -1,0 +1,62 @@
+fullnameOverride: oauth2-proxy
+config:
+  existingSecret: ${oauth2_secret}
+  # https://raw.githubusercontent.com/oauth2-proxy/oauth2-proxy/master/contrib/oauth2-proxy.cfg.example
+  # language=cfg
+  configFile: |-
+    provider = "oidc"
+    oidcIssuerURL: https://auth.${domain_name}/oauth2
+    http_address = "0.0.0.0:4180"
+    cookie_secure = true
+    cookie_httponly = true
+    reverse_proxy = true
+    cookie_expire = "168h"
+    cookie_refresh = "1h"
+    email_domains = [
+     "*"
+    ]
+    # redirect_url = "https://${oauth2_proxy_dns}/oauth2/callback"
+    # upstreams = [ "file:///dev/null" ]
+    #%{for upstream in upstreams~}
+    #  "${upstream}",
+    #%{endfor ~}
+    #]
+    # GitHub-specific
+    # github_org = "${organization}"
+    # insecure_oidc_allow_unverified_email = true
+    # Optional: restrict further by team
+    # github_team = "$${}"
+    # Forward identity info
+    # set_xauthrequest = true
+    # cookie_domains = [
+    #     ".${domain}"
+    # ]
+    # cookie_samesite = "lax"
+    # pass_access_token = true
+    # set_authorization_header = true
+
+    ## bypass authentication for requests that match the method & path. Format: method=path_regex OR path_regex alone for all methods
+    skip_auth_routes = [
+        "GET=^/probe",
+        "^/metrics"
+    ]
+    ## mark paths as API routes to get HTTP Status code 401 instead of redirect to login page
+    api_routes = [
+        "^/api"
+    ]
+
+ingress:
+  enabled: true
+  className: nginx
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+    nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+  hosts:
+    - ${oauth2_proxy_dns}
+redis:
+  enabled: true
+  replicas: 1
+  persistentVolume:
+    enabled: false

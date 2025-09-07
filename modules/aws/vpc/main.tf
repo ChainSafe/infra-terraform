@@ -24,13 +24,8 @@ module "vpc" {
   database_subnets = local.database_subnets
 
   enable_nat_gateway     = true
-  single_nat_gateway     = false
-  one_nat_gateway_per_az = true
-  reuse_nat_ips          = true
-  external_nat_ip_ids = [
-    for k, v in aws_eip.nat :
-    v.id
-  ]
+  single_nat_gateway     = var.single_nat
+  one_nat_gateway_per_az = !var.single_nat
 
   create_database_subnet_group  = true
   manage_default_security_group = var.manage_default_security_group

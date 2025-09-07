@@ -30,9 +30,9 @@ controller:
     ## for backwards compatibility consider setting the full image url via the repository value below
     ## use *either* current default registry/image or repository format or installing chart by providing the values.yaml will fail
     ## repository:
-    tag: "v1.12.1"
-    digest: sha256:d2fbc4ec70d8aa2050dd91a91506e998765e86c96f32cffb56c503c9c34eed5b
-    digestChroot: sha256:90155c86548e0bb95b3abf1971cd687d8f5d43f340cfca0ad3484e2b8351096e
+    tag: "v1.13.2"
+    digest: sha256:1f7eaeb01933e719c8a9f4acd8181e555e582330c7d50f24484fb64d2ba9b2ef
+    digestChroot: sha256:2beb2139c53d6bcb9c8b11d68b412a6a1aa1de3a7e6040695848b0ce997b2be8
     pullPolicy: IfNotPresent
     runAsNonRoot: true
     # -- This value must not be changed using the official image.
@@ -78,6 +78,8 @@ controller:
   # By default, while using host network, name resolution uses the host's DNS. If you wish nginx-controller
   # to keep resolving names inside the k8s network, use ClusterFirstWithHostNet.
   dnsPolicy: ClusterFirst
+  # -- Instruct the kubelet to use the named RuntimeClass to run the pod
+  runtimeClassName: ""
   # -- Bare-metal considerations via the host network https://kubernetes.github.io/ingress-nginx/deploy/baremetal/#via-the-host-network
   # Ingress status was blank because there is no Service exposing the Ingress-Nginx Controller in a configuration using the host network, the default --publish-service flag used in standard cloud setups does not apply
   reportNodeInternalIp: false
@@ -532,7 +534,6 @@ controller:
     # -- Traffic distribution policy of the external controller service. Set to "PreferClose" to route traffic to endpoints that are topologically closer to the client.
     # Ref: https://kubernetes.io/docs/concepts/services-networking/service/#traffic-distribution
     trafficDistribution: ""
-
     # -- Represents the dual-stack capabilities of the external controller service. Possible values are SingleStack, PreferDualStack or RequireDualStack.
     # Fields `ipFamilies` and `clusterIP` depend on the value of this field.
     # Ref: https://kubernetes.io/docs/concepts/services-networking/dual-stack/#services
@@ -622,7 +623,6 @@ controller:
       # -- Traffic distribution policy of the internal controller service. Set to "PreferClose" to route traffic to endpoints that are topologically closer to the client.
       # Ref: https://kubernetes.io/docs/concepts/services-networking/service/#traffic-distribution
       trafficDistribution: ""
-
       # -- Represents the dual-stack capabilities of the internal controller service. Possible values are SingleStack, PreferDualStack or RequireDualStack.
       # Fields `ipFamilies` and `clusterIP` depend on the value of this field.
       # Ref: https://kubernetes.io/docs/concepts/services-networking/dual-stack/#services
@@ -774,6 +774,8 @@ controller:
       type: ClusterIP
     createSecretJob:
       name: create
+      # -- Deadline in seconds for the job to complete. Must be greater than 0 to enforce. If unset or 0, no deadline is enforced.
+      activeDeadlineSeconds: 0
       # -- Security context for secret creation containers
       securityContext:
         runAsNonRoot: true
@@ -793,8 +795,20 @@ controller:
       # requests:
       #   cpu: 10m
       #   memory: 20Mi
+      # -- Volume mounts for secret creation containers
+      volumeMounts: []
+      # - name: certs
+      #   mountPath: /etc/webhook/certs
+      #   readOnly: true
+      # -- Volumes for secret creation pod
+      volumes: []
+      # - name: certs
+      #   secret:
+      #     secretName: my-webhook-secret
     patchWebhookJob:
       name: patch
+      # -- Deadline in seconds for the job to complete. Must be greater than 0 to enforce. If unset or 0, no deadline is enforced.
+      activeDeadlineSeconds: 0
       # -- Security context for webhook patch containers
       securityContext:
         runAsNonRoot: true
@@ -808,6 +822,16 @@ controller:
             - ALL
         readOnlyRootFilesystem: true
       resources: {}
+      # -- Volume mounts for webhook patch containers
+      volumeMounts: []
+      # - name: certs
+      #   mountPath: /etc/webhook/certs
+      #   readOnly: true
+      # -- Volumes for webhook patch pod
+      volumes: []
+      # - name: certs
+      #   secret:
+      #     secretName: my-webhook-secret
     patch:
       enabled: true
       image:
@@ -816,12 +840,14 @@ controller:
         ## for backwards compatibility consider setting the full image url via the repository value below
         ## use *either* current default registry/image or repository format or installing chart by providing the values.yaml will fail
         ## repository:
-        tag: v1.5.2
-        digest: sha256:e8825994b7a2c7497375a9b945f386506ca6a3eda80b89b74ef2db743f66a5ea
+        tag: v1.6.2
+        digest: sha256:050a34002d5bb4966849c880c56c91f5320372564245733b33d4b3461b4dbd24
         pullPolicy: IfNotPresent
       # -- Provide a priority class name to the webhook patching job
       ##
       priorityClassName: ""
+      # -- Instruct the kubelet to use the named RuntimeClass to run the pod
+      runtimeClassName: ""
       podAnnotations: {}
       # NetworkPolicy for webhook patch
       networkPolicy:
@@ -1185,7 +1211,6 @@ defaultBackend:
     # This value is immutable. Set once, it can not be changed without deleting and re-creating the service.
     # Ref: https://kubernetes.io/docs/concepts/services-networking/service/#choosing-your-own-ip-address
     clusterIPs: []
-
     # -- List of IP addresses at which the default backend service is available
     ## Ref: https://kubernetes.io/docs/concepts/services-networking/service/#external-ips
     ##
@@ -1195,6 +1220,8 @@ defaultBackend:
     servicePort: 80
     type: ClusterIP
   priorityClassName: ""
+  # -- Instruct the kubelet to use the named RuntimeClass to run the pod
+  runtimeClassName: ""
   # -- Labels to be added to the default backend resources
   labels: {}
 ## Enable RBAC as per https://github.com/kubernetes/ingress-nginx/blob/main/docs/deploy/rbac.md and https://github.com/kubernetes/ingress-nginx/issues/266

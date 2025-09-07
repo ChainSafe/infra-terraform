@@ -1,0 +1,108 @@
+# Values for lib42/ara Helm Chart
+image: docker.io/recordsansible/ara-api:latest
+pullPolicy: IfNotPresent
+
+replicas: 1
+
+# You can configure ARA using Environment Variables
+# See: https://ara.readthedocs.io/en/latest/api-configuration.html
+env: {}
+#  ARA_ALLOWED_HOSTS: "[ '127.0.0.1', 'localhost', '::1' ]"
+#  ARA_CORS_ORIGIN_WHITELIST:  "['http://127.0.0.1:8000', 'http://localhost:8000']"
+#  ARA_CORS_ORIGIN_REGEX_WHITELIST: "[ '.*' ]"
+#  ARA_DATABASE_ENGINE: django.db.backends.sqlite3
+#  ARA_DATABASE_HOST: None
+#  ARA_DATABASE_NAME: /opt/ara/server-ansible.sqlite
+#  ARA_DATABASE_PASSWORD: None
+#  ARA_DATABASE_PORT: None
+#  ARA_DATABASE_USER: None
+#  ARA_DATABASE_OPTIONS: "{}"
+#  ARA_EXTERNAL_AUTH: "False"
+#  ARA_READ_LOGIN_REQUIRED: "False"
+#  ARA_WRITE_LOGIN_REQUIRED: "False"
+#  ARA_TIME_ZONE: Europe/Berlin
+
+## Use a secret for ARA_DATABASE_PASSWORD:
+#envFromSecret: ara-secret-env
+
+# Ingress Controller
+ingress:
+  enabled: false
+
+  # Ingress Annotations:
+  annotations: {}
+
+  ingressClassName: ""
+
+  # List of ara ingress hosts
+  hosts:
+    - ara.domain
+
+  # List of ingress paths (has to be changed if ARA_BASE_PATH is non-default).
+  paths:
+    - /
+
+  # Ingress TLS configuration
+  tls: []
+  # - secretName: ara-tls
+  #   hosts:
+  #   - ara.domain
+
+# Resource limits/request
+resources: {}
+
+# Path for liveness and readiness probes (has to be changed if ARA_BASE_PATH is non-default).
+probePath: "/healthcheck/"
+
+# Configuration of liveness, readiness, and startup probes
+livenessProbe:
+  httpGet:
+    port: 8000
+    path: "{{ .Values.probePath }}"
+    httpHeaders:
+      - name: Host
+        value: "{{ first .Values.ingress.hosts }}"
+  initialDelaySeconds: 30
+  failureThreshold: 3
+  timeoutSeconds: 1
+  periodSeconds: 10
+readinessProbe:
+  httpGet:
+    port: 8000
+    path: "{{ .Values.probePath }}"
+    httpHeaders:
+      - name: Host
+        value: "{{ first .Values.ingress.hosts }}"
+  initialDelaySeconds: 30
+  failureThreshold: 3
+  timeoutSeconds: 1
+  periodSeconds: 10
+startupProbe:
+  httpGet:
+    port: 8000
+    path: "{{ .Values.probePath }}"
+    httpHeaders:
+      - name: Host
+        value: "{{ first .Values.ingress.hosts }}"
+  initialDelaySeconds: 30
+  failureThreshold: 30
+  timeoutSeconds: 1
+
+# Persistent volume for SQLite DB:
+persistentVolumes:
+  enabled: false
+  storageClassName: ""
+
+# Default node selector
+nodeSelector: {}
+
+# Default tolerations
+tolerations: []
+
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  runAsGroup: 2000
+  fsGroup: 2000
+
+containerSecurityContext: {}

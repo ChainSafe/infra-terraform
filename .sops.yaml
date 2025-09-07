@@ -1,0 +1,4 @@
+creation_rules:
+  - path_regex: secrets.tfvars.yaml$
+    role: arn:aws:iam::905418303280:role/terraform-management
+    kms: arn:aws:kms:eu-north-1:905418303280:key/0ee0075c-2912-49bc-80f6-fcc46f516de2

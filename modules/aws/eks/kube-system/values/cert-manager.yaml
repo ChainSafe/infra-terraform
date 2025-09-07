@@ -13,6 +13,10 @@ crds:
   enabled: true
 nodeSelector: *nodeSelector
 tolerations: *tolerations
+ingressShim:
+  defaultIssuerName: letsencrypt
+  defaultIssuerKind: ClusterIssuer
+  defaultIssuerGroup: cert-manager.io
 resources:
   requests:
     cpu: 100m

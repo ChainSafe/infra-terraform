@@ -1,0 +1,27 @@
+issuer: https://auth.${domain}/oauth2
+connectors:
+  - type: github
+    id: github
+    name: GitHub
+    config:
+      clientID: ${client_id}
+      clientSecret: ${client_secret}
+      redirectURI: http://127.0.0.1:5556/oauth2/callback
+      orgs:
+        - name: ${organization}
+      loadAllGroups: false
+      teamNameField: slug
+      useLoginAsID: false
+      preferredEmailDomain: ${email_domain}
+staticClients:
+%{for client, redirect in static_clients~}
+  - id: "${client}"
+    redirectURIs:
+      - "${redirect}"
+    name: "${client}"
+    secret: "${client}-client-secret"
+%{endfor ~}
+storage:
+  type: sqlite3
+  config:
+    file: /var/dex/dex.db

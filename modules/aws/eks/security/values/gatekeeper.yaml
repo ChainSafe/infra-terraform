@@ -1,0 +1,24 @@
+replicas: 1
+revisionHistoryLimit: 3
+
+podAnnotations:
+  fluentbit.io/exclude: "true"
+
+controllerManager:
+  nodeSelector:
+    nodegroup: default
+  tolerations:
+    - key: CriticalAddonsOnly
+      operator: Exists
+audit:
+  nodeSelector:
+    nodegroup: default
+  tolerations:
+    - key: CriticalAddonsOnly
+      operator: Exists
+  resources:
+    limits:
+      memory: 1Gi
+    requests:
+      cpu: 100m
+      memory: 512Mi

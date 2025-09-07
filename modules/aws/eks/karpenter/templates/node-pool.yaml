@@ -15,6 +15,11 @@ spec:
         group: karpenter.k8s.aws
         kind: EC2NodeClass
         name: "${node_class}"
+      %{~ if tainted ~}
+      taints:
+        - key: nodegroup
+          effect: "${name}"
+      %{~ endif ~}
       requirements:
         - key: "karpenter.k8s.aws/instance-family"
           operator: In

@@ -18,3 +18,19 @@ resource "helm_release" "cert_manager" {
     )
   ]
 }
+
+resource "kubectl_manifest" "cert_issuers" {
+  for_each = toset([
+    "letsencrypt",
+  ])
+  yaml_body = templatefile(
+    "${path.module}/manifests/cert-manager/${each.key}.yaml",
+    {
+      email_domain = var.default_variables.email_domain
+    }
+  )
+
+  depends_on = [
+    helm_release.cert_manager
+  ]
+}

@@ -1,5 +1,5 @@
 terraform {
-  required_version = "1.13.1"
+  required_version = ">= 1.10"
 
   required_providers {
     aws = {
@@ -7,9 +7,14 @@ terraform {
       version = "~> 6.0"
     }
 
+    kubectl = {
+      source  = "alekc/kubectl"
+      version = "~> 2.0"
+    }
+
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = ">= 2.0"
+      version = "~> 2.0"
     }
 
     helm = {
@@ -19,7 +24,7 @@ terraform {
 
     vault = {
       source  = "hashicorp/vault"
-      version = "5.2.1"
+      version = "~> 5.0"
     }
   }
 }

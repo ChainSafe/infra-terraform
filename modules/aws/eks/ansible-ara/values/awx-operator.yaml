@@ -1,0 +1,34 @@
+AWX:
+  enabled: true
+  spec:
+    auto_upgrade: true
+    # https://github.com/ansible/awx/blob/devel/awx/main/conf.py
+    extra_settings:
+      - setting: TOWER_URL_BASE
+        value: "'https://${awx_dns}'"
+      - setting: AWX_TASK_ENV
+        value: '{"HOME": "/var/lib/awx"}'
+      - setting: AWX_SHOW_PLAYBOOK_LINKS
+        value: "True"
+      - setting: DISABLE_LOCAL_AUTH
+        value: "True"
+    ingress_type: ingress
+    ingress_class_name: nginx
+    ingress_hosts:
+      - hostname: ${awx_dns}
+    ingress_annotations: |
+      kubernetes.io/tls-acme: "true"
+      nginx.ingress.kubernetes.io/ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+      nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+    postgres_data_volume_init: true
+
+customVolumes:
+  postgres:
+    enabled: true
+    hostPath: /data/postgres-15
+    storageClassName: gp3
+  projects:
+    enabled: true
+    hostPath: /data/projects
+    storageClassName: gp3

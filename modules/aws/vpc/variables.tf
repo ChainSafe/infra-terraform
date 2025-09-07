@@ -155,17 +155,6 @@ DESC
   }
 }
 
-variable "transit_gw_owner" {
-  type        = string
-  description = <<DESC
-ID Of the account containing TGW (defaults null)
-
-Example:
-* transit_gw_owner = "1234567890"
-DESC
-  default     = null
-}
-
 variable "attach_tgws" {
   type = set(string)
 
@@ -194,4 +183,17 @@ Example:
 DESC
 
   default = []
+}
+
+variable "single_nat" {
+  type = bool
+
+  description = <<DESC
+If single NAT or NAT per AZ to create (defaults true)
+
+Example:
+* single_nat = false
+DESC
+
+  default = true
 }

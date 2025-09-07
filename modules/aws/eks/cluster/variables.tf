@@ -28,17 +28,21 @@ variable "default_node_group" {
       instance_types = optional(set(string), ["m6g.large"])
       min_capacity   = optional(number, 2)
       max_capacity   = optional(number, 3)
+      tainted        = optional(bool, false)
     }
   )
 
   description = <<DESC
 Default nodes configuration (defaults {instance_types=["m6g.large"],min_capacity=2,max_capacity=3})
 
+If node group is tainted, it allows only CriticalAddons installation
+
 Example:
 * default_node_group = {
     instance_types = ["m5.large"]
     min_capacity   = 2
     max_capacity   = 3
+    tainted = true
 }
 DESC
 
@@ -46,6 +50,7 @@ DESC
     instance_types = ["m6g.large"]
     min_capacity   = 2
     max_capacity   = 3
+    tainted        = false
   }
 }
 

@@ -101,13 +101,13 @@ module "eks" {
         }
       )
 
-      taints = {
+      taints = var.default_node_group.tainted ? {
         addons = {
           key    = "CriticalAddonsOnly"
           value  = "true"
           effect = "NO_SCHEDULE"
         }
-      }
+      } : null
 
       tags = merge(
         local.global_tags,

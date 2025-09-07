@@ -15,6 +15,7 @@ misconfigurations:
   - id: AVD-KSV-0032 # Containers should only use images from trusted registries.
   - id: AVD-KSV-0033 # Containers should only use images from trusted GCR registries.
   - id: AVD-KSV-0035 # Container images from non-ECR registries should be forbidden.
+  - id: AVD-KSV-0125 # (MEDIUM): Container uses an image from an untrusted registry.
   - id: AVD-KSV-0104 # Seccomp policies disabled
 
   # Node Local DNS configuration

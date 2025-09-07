@@ -6,6 +6,9 @@
   "pull-request-title-pattern": "chore ${scope}: release${component} ${version}",
   "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
   "packages": {
+    "modules/aws/eks/ansible-ara": {
+      "package-name": "aws-eks-ansible-ara"
+    },
     "modules/aws/eks/cluster": {
       "package-name": "aws-eks-cluster"
     },
@@ -15,11 +18,35 @@
     "modules/aws/eks/karpenter": {
       "package-name": "aws-eks-karpenter"
     },
+    "modules/aws/eks/keycloak": {
+      "package-name": "aws-eks-keycloak"
+    },
     "modules/aws/eks/kube-system": {
       "package-name": "aws-eks-kube-system"
     },
+    "modules/aws/eks/security": {
+      "package-name": "aws-eks-security"
+    },
+    "modules/aws/eks/vault": {
+      "package-name": "aws-eks-vault"
+    },
+    "modules/aws/eks/vault-config": {
+      "package-name": "aws-eks-vault-config"
+    },
     "modules/aws/vpc": {
       "package-name": "aws-vpc"
+    },
+    "modules/aws/route53": {
+      "package-name": "aws-route53"
+    },
+    "modules/cloudflare/r2": {
+      "package-name": "cloudflare-r2"
+    },
+    "modules/hetzner/servers": {
+      "package-name": "hetzner-servers"
+    },
+    "modules/ovh/dedicated-servers": {
+      "package-name": "ovh-dedicated-servers"
     }
   }
 }

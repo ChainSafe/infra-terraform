@@ -1,0 +1,162 @@
+---
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Deploy initial Terraform roles
+Conditions:
+  MasterAccountOnly: !Equals [ !Ref AWS::AccountId, !Ref MasterAccountId ]
+
+Parameters:
+  OrganizationName:
+    Type: String
+    Description: Name of the organization. Is used for bucket name and lock table.
+  MasterAccountId:
+    Type: String
+    Description: Id of the organization master account.
+  DefaultRegion:
+    Type: String
+    Description: Default Region for assuming IAM.
+  OrganizationAdminRoleName:
+    Type: String
+    Description: IAM Role Name for Terraform Access.
+
+Resources:
+  TerraformEntryRole:
+    Type: AWS::IAM::Role
+    Condition: MasterAccountOnly
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS:
+                - !GetAtt AtlantisRole.Arn
+            Action:
+              - 'sts:AssumeRole'
+          - Effect: Allow
+            Principal:
+              AWS:
+                - !Sub "arn:aws:iam::${MasterAccountId}:role/aws-reserved/sso.amazonaws.com/${DefaultRegion}/${OrganizationAdminRoleName}" # Organization Admin
+            Action:
+              - 'sts:AssumeRole'
+      RoleName: terraform-management
+      Path: /
+      Policies:
+        - PolicyName: terraform
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action: 'sts:AssumeRole'
+                Resource: "arn:aws:iam::*:role/terraform"
+              - Effect: Allow
+                Action: 'sts:AssumeRole'
+                Resource: "arn:aws:iam::*:role/OrganizationAccountAccessRole"
+              - Effect: Allow
+                Action:
+                  - 's3:ListBucket'
+                  - 's3:GetBucketVersioning'
+                Resource: !GetAtt TerraformStateS3Bucket.Arn
+              - Effect: Allow
+                Action:
+                  - 's3:PutObject'
+                  - 's3:GetObject'
+                  - 's3:DeleteObject'
+                Resource: !Sub '${TerraformStateS3Bucket.Arn}/*'
+              - Effect: Allow
+                Action:
+                  - 'kms:Decrypt'
+                Resource: !GetAtt TerraformSOPSKey.Arn
+
+  TerraformRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS:
+                - !Sub "arn:aws:iam::${MasterAccountId}:role/terraform-management"
+            Action:
+              - 'sts:AssumeRole'
+      RoleName: terraform
+      Path: /
+      ManagedPolicyArns:
+        - "arn:aws:iam::aws:policy/AdministratorAccess"
+    DependsOn: TerraformEntryRole
+
+  AtlantisRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS:
+                - !Sub arn:aws:iam::${MasterAccountId}:root
+            Action:
+              - 'sts:AssumeRole'
+      RoleName: platform-atlantis
+      Path: /
+      Policies:
+        - PolicyName: terraform
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action: 'sts:AssumeRole'
+                Resource: "arn:aws:iam::*:role/terraform-management"
+
+  TerraformStateS3Bucket:
+    Type: AWS::S3::Bucket
+    Condition: MasterAccountOnly
+    DeletionPolicy: Retain
+    Properties:
+      BucketName: !Sub "${OrganizationName}-terraform-states"
+      AccessControl: Private
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      VersioningConfiguration:
+        Status: Enabled
+
+  TerraformSOPSKey:
+    Type: AWS::KMS::Key
+    Condition: MasterAccountOnly
+    DeletionPolicy: Retain
+    Properties:
+      Description: "KMS Key to encrypt local sops credentials for terragrunt"
+
+  TerraformStateS3BucketBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Condition: MasterAccountOnly
+    DependsOn:
+      - TerraformStateS3Bucket
+
+    Properties:
+      Bucket: !Ref TerraformStateS3Bucket
+      PolicyDocument:
+        Statement:
+          - Sid: DenyDeletingTerraformStateFiles
+            Effect: Deny
+            Principal: "*"
+            Action: "s3:DeleteObject"
+            Resource: !Sub "arn:aws:s3:::${TerraformStateS3Bucket}/*.tfstate"
+
+Outputs:
+  TerraformEntryRole:
+    Description: IAM Role for Terraform
+    Value: !GetAtt TerraformEntryRole.Arn
+  TerraformStatesBucket:
+    Description: S3 Bucket for Terraform State
+    Value: !Ref TerraformStateS3Bucket
+  TerraformSOPSKey:
+    Description: KMS Key to encrypt local sops credentials for terragrunt
+    Value: !GetAtt TerraformSOPSKey.Arn

@@ -1,6 +1,13 @@
 locals {
   vpc_name         = "main"
-  eks_cluster_name = var.cluster_name != "" ? var.cluster_name : var.default_variables.account_name
+  eks_cluster_name = var.cluster_name != "" ? var.cluster_name : replace(var.default_variables.account_name, "-prod", "")
+  domain_name = join(".",
+    compact([
+      replace(var.default_variables.account_name, "-prod", ""),
+      "aws",
+      var.default_variables.global_hosted_zone
+    ])
+  )
 }
 
 data "aws_eks_cluster" "this" {
@@ -54,3 +61,7 @@ locals {
 }
 
 data "kubernetes_all_namespaces" "this" {}
+
+data "aws_route53_zone" "public" {
+  name = local.domain_name
+}

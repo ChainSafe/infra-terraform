@@ -23,6 +23,7 @@ repos:
         language: script
         entry: .pre-commit/sops-encrypt.sh
         files: secrets\.tfvars\.yaml$
+        exclude: /(\.terraform|\.terragrunt-cache|\.external_modules|examples)/
 
   - repo: https://github.com/gruntwork-io/pre-commit
     rev: v0.1.30

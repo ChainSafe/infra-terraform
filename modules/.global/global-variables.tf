@@ -1,3 +1,30 @@
+variable "name" {
+  type = object({
+    purpose   = optional(string, "")
+    separator = optional(string, "-")
+  })
+
+  description = <<DESC
+Components of the name
+
+* purpose: Purpose of the resource. E.g. "upload-images"
+* separator: Name separator (defaults "-")
+
+Resource name will be <project>-<env>-<purpose>-(|<type of resource>)
+
+Example:
+* name = {
+  purpose = "upload-images"
+  separator = "_"
+}
+DESC
+
+  default = {
+    purpose   = ""
+    separator = "-"
+  }
+}
+
 variable "tags" {
   type        = map(string)
   description = <<DESC
@@ -13,17 +40,30 @@ DESC
 
 variable "default_variables" {
   type = object({
-    account_name = string
-    account_id   = string
+    cloud        = string
+    account_name = optional(string)
+    account_id   = optional(string)
     region       = optional(string, "eu-north-1")
 
     project = string
-    purpose = optional(string, "")
     env     = string
+    purpose = optional(string, "")
 
-    owner = optional(string, "devops")
+    owner = string
 
-    management_account_id = optional(string, "760950667285")
+    global_hosted_zone    = string
+    management_account_id = string
+    platform_account_id   = string
+    organization          = string
+    email_domain          = string
+
+    infrastructure_repository = string
+    terragrunt_config = object(
+      {
+        stack_name    = optional(string, "")
+        stack_version = optional(string, "")
+      }
+    )
   })
 
   description = <<DESC

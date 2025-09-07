@@ -1,0 +1,1 @@
+/Users/adobrodey/IdeaProjects/ChainSafe/infra-terraform/modules/.global/global-variables.tf

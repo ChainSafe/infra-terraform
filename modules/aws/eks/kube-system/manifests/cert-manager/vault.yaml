@@ -1,0 +1,18 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: vault
+  namespace: cert-manager
+spec:
+  vault:
+    auth:
+      kubernetes:
+        mountPath: /v1/auth/${cluster_name}
+        role: ${cluster_name}
+        secretRef:
+          key: token
+          name: cert-manager-vault-auth-token
+    caBundle: >-
+      ***
+    path: pki_***
+    server: https://vault.${domain}

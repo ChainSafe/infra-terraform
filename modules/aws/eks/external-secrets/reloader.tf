@@ -4,28 +4,15 @@ resource "helm_release" "reloader" {
   version    = var.secrets_reloader_version
   repository = "https://stakater.github.io/stakater-charts"
 
-  namespace = local.namespace
+  namespace    = local.namespace
+  force_update = true
 
   values = [
-    <<DESC
-reloader:
-  ignoreConfigMaps: true
-  isArgoRollouts: true
-  reloadStrategy: annotations
-  # resourceLabelSelector: external-secret=true
-  resources:
-    limits:
-      cpu: 200m
-      memory: 256Mi
-    requests:
-      cpu: 200m
-      memory: 256Mi
-  deployment:
-    nodeSelector:
-      dedicated: managed
-    tolerations:
-    - key: CriticalAddonsOnly
-      operator: Exists
-DESC
+    templatefile(
+      "${path.module}/values/reloader.yaml",
+      {
+
+      }
+    )
   ]
 }

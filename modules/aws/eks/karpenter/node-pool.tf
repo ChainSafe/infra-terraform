@@ -12,6 +12,7 @@ resource "kubectl_manifest" "karpenter_node_pool" {
       capacity_type   = each.value.is_spot ? "spot" : "on-demand"
       cpu_limit       = each.value.max_cpu
       memory_limit    = each.value.max_cpu * 4
+      tainted         = each.value.tainted
     }
   )
 

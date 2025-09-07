@@ -1,0 +1,18 @@
+reloader:
+  ignoreConfigMaps: true
+  isArgoRollouts: true
+  reloadStrategy: annotations
+  # resourceLabelSelector: external-secret=true
+  resources:
+    limits:
+      cpu: 200m
+      memory: 256Mi
+    requests:
+      cpu: 200m
+      memory: 256Mi
+  deployment:
+    nodeSelector:
+      nodegroup: default
+    tolerations:
+      - key: CriticalAddonsOnly
+        operator: Exists

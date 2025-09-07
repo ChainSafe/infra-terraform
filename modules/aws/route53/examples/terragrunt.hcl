@@ -1,0 +1,97 @@
+# ---------------------------------------------------------------------------------------------------------------------
+# You can find latest template for this module at:
+# https://github.com/ChainSafe/infra-terraform/tree/main/modules/aws/route53/examples/
+# ---------------------------------------------------------------------------------------------------------------------
+
+locals {
+  stack_name    = "modules/aws/route53"
+  stack_version = "main" # FIXME: Please update version if required
+
+  stack_host       = "git::git@github.com"
+  stack_repository = "ChainSafe/infra-terraform"
+}
+
+# Terragrunt will copy the Terraform configurations specified by the source
+# parameter, along with any files in the working directory,
+# into a temporary folder, and execute your Terraform commands in that folder.
+terraform {
+  source = "${local.stack_host}:${local.stack_repository}.git//${local.stack_name}?ref=${local.stack_version}"
+}
+
+include "root" {
+  path = find_in_parent_folders("terragrunt-core.hcl")
+}
+
+
+# TODO: These are the variables we have to pass in to use the module specified in the terragrunt configuration above:
+inputs = merge(
+  try(
+    yamldecode(
+      sops_decrypt_file("secrets.tfvars.yaml")
+    ),
+    yamldecode(
+      file("secrets.tfvars.yaml")
+    )
+  ),
+  {
+        # ---------------------------------------------------------------------------------------------------------------------
+    # Components of the name
+    #
+    # * purpose: Purpose of the resource. E.g. "upload-images"
+    # * separator: Name separator (defaults "-")
+    #
+    Resource name will be <project>-<env>-<purpose>-(|<type of resource>)
+    #
+    # Example:
+    # * name = {
+    #   purpose = "upload-images"
+    #   separator = "_"
+    # }
+    # ---------------------------------------------------------------------------------------------------------------------
+    # name = {
+    #   purpose = ""
+    #   separator = "-"
+    # }
+
+    # ---------------------------------------------------------------------------------------------------------------------
+    # Map of the custom resource tags (defaults {})
+    #
+    # Example:
+    # * tags = {
+    #   Foo = "Bar"
+    # }
+    # ---------------------------------------------------------------------------------------------------------------------
+    # tags = {}
+
+    # ---------------------------------------------------------------------------------------------------------------------
+    # Domain for the account hosted zones
+    #
+    # Example:
+    # * zone_domain = "finance"
+    # ---------------------------------------------------------------------------------------------------------------------
+    # zone_domain = ""
+
+    # ---------------------------------------------------------------------------------------------------------------------
+    # If public zone is created (defaults true)
+    #
+    # Example:
+    # * enable_public_zone = false
+    # ---------------------------------------------------------------------------------------------------------------------
+    # enable_public_zone = true
+
+    # ---------------------------------------------------------------------------------------------------------------------
+    # Configuration of CloudFlare federation
+    #
+    # Example:
+    # * cloudflare = {
+    #   zone_name = "example"
+    #   account_name = "example"
+    # }
+    # ---------------------------------------------------------------------------------------------------------------------
+    # cloudflare = {
+    #   account_name = ""
+    #   zone_name = ""
+    #  }
+
+  }
+)

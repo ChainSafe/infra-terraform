@@ -1,30 +1,51 @@
+global:
+  security:
+    allowInsecureImages: true
+
+serviceAccount:
+  create: true
+  name: ${sa_name}
+  annotations:
+    eks.amazonaws.com/role-arn: ${iam_role}
+
+image:
+  registry: registry.k8s.io
+  repository: external-dns/external-dns
+  tag: v0.19.0
+
 nodeSelector:
   nodegroup: default
 tolerations:
   - key: CriticalAddonsOnly
     operator: Exists
-provider: cloudflare
-cloudflare:
-  secretName: ${cf_secret_name}
+provider: aws
+aws:
+  region: ${aws_region}
+  preferCNAME: true
+  dynamodbTable: ${dynamodb_table}
+  dynamodbRegion: ${aws_region}
+  zonesCacheDuration: 1h
+  zoneType: "${zone_type}"
+  zoneMatchParent: true
+ingressClassFilters:
+  - alb
+zoneIdFilters:
+  %{~ for zone_id in include_zones }
+- ${zone_id}
+  %{~ endfor }
 
-domainFilters:
-%{~ for domain in include_domains }
-- ${domain}
-%{~ endfor }
-
-annotationFilter: "${annotation_filter}"
 serviceTypeFilter:
   - LoadBalancer
   - ExternalName
 
-registry: "txt"
+registry: "dynamodb"
 policy: upsert-only
 interval: "5m"
 triggerLoopOnEvent: true
 managedRecordTypesFilters:
   - CNAME
   - TXT
-txtOwnerId: "/eks/${cluster}"
+#txtOwnerId: "/eks/${cluster}"
 
 containerSecurityContext:
   allowPrivilegeEscalation: false

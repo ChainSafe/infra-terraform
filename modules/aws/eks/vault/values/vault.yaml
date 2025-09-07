@@ -1,0 +1,152 @@
+injector:
+  enabled: true
+  nodeSelector:
+    nodegroup: default
+  tolerations:
+    - key: nodegroup
+      operator: Equal
+      value: default
+      effect: NoSchedule
+
+server:
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    annotations:
+      kubernetes.io/tls-acme: "true"
+      nginx.ingress.kubernetes.io/ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+      nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+    hosts:
+      - host: ${host_url}
+        paths: []
+  updateStrategyType: RollingUpdate
+  standalone:
+    enabled: false
+  ha:
+    enabled: true
+    replicas: 2
+    raft:
+      enabled: true
+      config: |
+        ui = true
+
+        listener "tcp" {
+          tls_disable = 1
+          address = "[::]:8200"
+          cluster_address = "[::]:8201"
+
+          telemetry {
+            unauthenticated_metrics_access = "true"
+          }
+        }
+
+        storage "raft" {
+          path = "/vault/data"
+
+          retry_join {
+            leader_api_addr = "http://vault-server-0.vault-server-internal:8200"
+          }
+          retry_join {
+            leader_api_addr = "http://vault-server-1.vault-server-internal:8200"
+          }
+        }
+
+        seal "awskms" {
+          region     = "${aws_region}"
+          kms_key_id = "${unseal_key_id}"
+        }
+
+        service_registration "kubernetes" {}
+
+        telemetry {
+          prometheus_retention_time = "30s"
+          disable_hostname = true
+        }
+
+  serviceAccount:
+    name: ${service_account_name}
+    annotations:
+      eks.amazonaws.com/role-arn: ${role_arn}
+  extraEnvironmentVars:
+    AWS_ROLE_SESSION_NAME: vault
+  nodeSelector:
+    nodegroup: default
+  tolerations:
+    - key: nodegroup
+      operator: Equal
+      value: default
+      effect: NoSchedule
+  volumes:
+    - name: bootstrap
+      secret:
+        secretName: ${bootstrap_secret}
+        defaultMode: 0550
+  volumeMounts:
+    - name: bootstrap
+      mountPath: /vault/userconfig
+  dataStorage:
+    enabled: true
+    size: 10Gi
+  auditStorage:
+    # TODO: review if needed
+    enabled: false
+    size: 10Gi
+  postStart:
+   - /bin/sh
+   - -c
+   - /vault/userconfig/bootstrap.sh
+  affinity: |
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchLabels:
+            app.kubernetes.io/name: {{ template "vault.name" . }}
+            app.kubernetes.io/instance: "{{ .Release.Name }}"
+            component: server
+        topologyKey: topology.kubernetes.io/zone
+
+ui:
+  enabled: true
+
+serverTelemetry:
+  serviceMonitor:
+    enabled: true
+  prometheusRules:
+    enabled: true
+    rules:
+      - alert: vault-HighResponseTime
+        annotations:
+          message: The response time of Vault is over 500ms on average over the last 5 minutes.
+        expr: vault_core_handle_request{quantile="0.5", namespace="${namespace}"} > 500
+        for: 5m
+        labels:
+          severity: warning
+      - alert: vault-Sealed
+        expr: |
+          vault_core_unsealed == 0
+        for: 0m
+        labels:
+          severity: critical
+          namespace: ${namespace}
+        annotations:
+          summary: "Vault sealed (instance {{ $labels.instance }})"
+          description: |
+            Vault instance is sealed on {{ $labels.instance }}
+              VALUE = {{ $value }}
+              LABELS = {{ $labels }}
+          runbook_url: ""
+      - alert: VaultTooManyInfinityTokens
+        expr: |
+          vault_token_count_by_ttl{creation_ttl="+Inf"} > 3
+        for: 5m
+        labels:
+          severity: warning
+          namespace: ${namespace}
+        annotations:
+          summary: "Vault too many infinity tokens (instance {{ $labels.instance }})"
+          description: |
+            Too many infinity tokens {{ $labels.instance }}: {{ $value | printf "%.2f"}}%
+              VALUE = {{ $value }}
+              LABELS = {{ $labels }}
+          runbook_url: ""

@@ -47,3 +47,7 @@ resource "helm_release" "karpenter" {
     module.karpenter
   ]
 }
+
+resource "aws_iam_service_linked_role" "spots" {
+  aws_service_name = "spot.amazonaws.com"
+}

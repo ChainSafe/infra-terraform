@@ -29,14 +29,14 @@ DESC
 variable "external_dns_version" {
   type        = string
   description = <<DESC
-Version of bitnami/external-dns (defaults "8.7.7")
+Version of bitnami/external-dns (defaults "9.0.3")
 
 https://github.com/bitnami/charts/tree/main/bitnami/external-dns/Chart.yaml
 
 Example:
 * external_dns_version = "2.20.0"
 DESC
-  default     = "8.7.7"
+  default     = "9.0.3"
 }
 
 # https://github.com/kubernetes/ingress-nginx/blob/main/charts/ingress-nginx/Chart.yaml
@@ -44,28 +44,28 @@ variable "ingress_nginx_version" {
   type = string
 
   description = <<DESC
-Version of ingress-nginx/ingress-nginx (defaults "4.12.1")
+Version of ingress-nginx/ingress-nginx (defaults "4.13.2")
 
 https://github.com/kubernetes/ingress-nginx/blob/main/charts/ingress-nginx/Chart.yaml
 
 Example:
 * ingress_nginx_version = "4.12.1"
 DESC
-  default     = "4.12.1"
+  default     = "4.13.2"
 }
 
 # https://github.com/kedacore/charts/blob/main/keda/Chart.yaml
 variable "keda_version" {
   type        = string
   description = <<DESC
-Version of kedacore/keda (defaults "2.16.1")
+Version of kedacore/keda (defaults "2.17.2")
 
 https://github.com/kedacore/charts/blob/main/keda/Chart.yaml
 
 Example:
 * keda_version = "2.20.0"
 DESC
-  default     = "2.16.1"
+  default     = "2.17.2"
 }
 
 # https://artifacthub.io/packages/helm/cert-manager/cert-manager?modal=values
@@ -94,17 +94,4 @@ Example:
 * volume_autoscaler_version = "1.7.0"
 DESC
   default     = "1.0.8"
-}
-
-variable "enable_public_external_dns" {
-  type = bool
-
-  description = <<DESC
-Enable Public External DNS(defaults false)
-
-Example:
-* enable_public_external_dns = true
-DESC
-
-  default = false
 }
