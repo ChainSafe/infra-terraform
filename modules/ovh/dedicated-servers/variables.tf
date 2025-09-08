@@ -48,7 +48,7 @@ variable "configuration" {
       apt update
       apt install -y ansible git wget
 
-      git clone "https://github.com/next-gen-infrastructure/ansible-public" /tmp/bootstrap
+      git clone "https://github.com/ChainSafe/fil-ansible-collection" /tmp/bootstrap
       ansible-playbook -i localhost, -c local /tmp/bootstrap/bootstrap.yml
       SCRIPT
     )
