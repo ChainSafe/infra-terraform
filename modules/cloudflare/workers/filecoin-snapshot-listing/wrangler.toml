@@ -1,0 +1,19 @@
+name = "infra-team-filecoin-snapshot-listing"
+main = "src/index.ts"
+
+compatibility_date = "2023-09-13"
+usage_model = "bundled"
+logpush = true
+env = { }
+
+assets = {directory = "./public",binding = "ASSETS"}
+
+routes = [
+	{ pattern = "forest-archive.chainsafe.dev/*", zone_name = "chainsafe.dev" },
+]
+
+r2_buckets = [
+	{ binding = "SNAPSHOT_ARCHIVE", bucket_name = "infra-team-filecoin-archive", preview_bucket_name = "infra-team-filecoin-archive" },
+	{ binding = "FOREST_ARCHIVE", bucket_name = "forest-archive", preview_bucket_name = "forest-archive" },
+	{ binding = "SNAPSHOT_ARCHIVE_V2", bucket_name = "forest-snapshots-v2", preview_bucket_name = "forest-snapshots-v2" },
+]
