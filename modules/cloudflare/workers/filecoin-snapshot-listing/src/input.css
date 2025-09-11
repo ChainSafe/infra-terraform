@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+/* Corporate accent color */
+.bg-primary { background-color: #358e89; }
+.text-primary { color: #dcf3f0; }
+.hover\:bg-primary:hover { background-color: #358e89; }

@@ -1,0 +1,30 @@
+<div class="snapshot-card bg-gray-800 shadow-lg rounded-2xl p-6 flex flex-col transition hover:shadow-xl" data-key="{{key}}">
+  <h2 class="font-mono text-sm text-gray-200 truncate mb-3">
+    https://forest-archive.chainsafe.dev{{base}}
+  </h2>
+
+  <div class="flex justify-between text-xs text-gray-400 mb-4">
+    <span>{{fileSize}}</span>
+    <span>Uploaded: {{uploaded}}</span>
+  </div>
+
+  <div class="mt-auto flex gap-3">
+    <a class="flex-1 text-center bg-primary text-gray-900 px-4 py-2 rounded-lg text-sm font-semibold hover:opacity-90 transition"
+       href="{{base}}">
+      Download
+    </a>
+    <button class="text-sm border border-gray-600 px-4 py-2 rounded-lg text-gray-200 hover:bg-gray-700 transition"
+            data-sha256-url="{{shaButtonUrl}}.sha256sum"
+    onclick="revealSha(this)">
+    SHA256
+    </button>
+    <button class="{{metaButtonHide}} text-sm border border-gray-600 px-4 py-2 rounded-lg text-gray-200 hover:bg-gray-700 transition"
+    data-meta-url="{{base}}.metadata.json"
+    onclick="revealMeta(this)">
+    Meta
+    </button>
+  </div>
+
+  <pre class="sha256-content hidden mt-3 bg-gray-900 border border-gray-700 p-3 rounded text-xs text-green-400 overflow-x-auto"></pre>
+  <pre class="meta-content hidden mt-3 bg-gray-900 border border-gray-700 p-3 rounded text-xs text-blue-400 overflow-x-auto"></pre>
+</div>

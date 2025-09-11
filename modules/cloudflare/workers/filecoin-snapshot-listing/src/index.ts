@@ -1,5 +1,5 @@
 import {type Env, getBucketListingObj, getBucketObjects} from './buckets';
-import {do_listing, do_listing_v2} from './listings';
+import {do_listing_v2} from './listings';
 import {fetch_file} from './files';
 import {renderSnapshotsHomePage} from './templates';
 
@@ -37,26 +37,22 @@ export default {
         switch (pathname) {
           case '/list':
           case '/list/': {
-            return new Response(renderSnapshotsHomePage(), {
-              headers: {
-                'content-type': 'text/html;charset=UTF-8',
-              },
-            });
+              return new Response(renderSnapshotsHomePage(), { headers: { 'content-type': 'text/html' } });
           }
           case '/list/favicon.ico':
             return env.ASSETS.fetch(request);
           case '/list/calibnet/latest-v2':
             return do_listing_v2(env, env.SNAPSHOT_ARCHIVE_V2, 'calibnet/latest-v2', 'Filecoin Snapshots v2');
           case '/list/mainnet/latest':
-            return do_listing(env, env.SNAPSHOT_ARCHIVE, 'mainnet/latest');
+            return do_listing_v2(env, env.SNAPSHOT_ARCHIVE, 'mainnet/latest');
           case '/list/calibnet/latest':
             return do_listing_v2(env, env.SNAPSHOT_ARCHIVE, 'calibnet/latest');
           case '/list/mainnet/diff':
-            return do_listing(env, env.FOREST_ARCHIVE, 'mainnet/diff', 'Filecoin Snapshots Archive');
+            return do_listing_v2(env, env.FOREST_ARCHIVE, 'mainnet/diff', 'Filecoin Snapshots Archive');
           case '/list/calibnet/diff':
             return do_listing_v2(env, env.FOREST_ARCHIVE, 'calibnet/diff', 'Filecoin Snapshots Archive');
           case '/list/mainnet/lite':
-            return do_listing(env, env.FOREST_ARCHIVE, 'mainnet/lite', 'Filecoin Snapshots Archive');
+            return do_listing_v2(env, env.FOREST_ARCHIVE, 'mainnet/lite', 'Filecoin Snapshots Archive');
           case '/list/calibnet/lite':
             return do_listing_v2(env, env.FOREST_ARCHIVE, 'calibnet/lite', 'Filecoin Snapshots Archive');
           default:

@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "deploy": "wrangler deploy",
-    "dev": "wrangler dev",
-    "start": "wrangler dev",
-    "test": "vitest",
+    "dev": "wrangler dev --remote",
+    "start": "wrangler dev --remote",
+    "build:css": "tailwindcss -i src/input.css -o public/static/style.css",
     "cf-typegen": "wrangler types",
     "js-fmt": "prettier --write src/*.ts",
     "js-check": "prettier --check src/*.ts",
@@ -24,9 +24,9 @@
     "globals": "^16.4.0",
     "jiti": "^2.5.1",
     "range-parser": "^1.2.1",
+    "tailwindcss": "^4.1.13",
     "typescript": "^5.0.0",
     "typescript-eslint": "^8.43.0",
-    "vitest": "^3.0.0",
     "wrangler": "^4.0.0"
   },
   "packageManager": "yarn@4.9.4"
