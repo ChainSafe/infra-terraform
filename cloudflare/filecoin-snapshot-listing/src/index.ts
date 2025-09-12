@@ -19,7 +19,7 @@ export default {
         }
 
         if (pathname.startsWith('/latest/')) {
-          const [, chain, ...rest] = pathname.split('/');
+          const [, chain] = pathname.split('/');
           const bucket = env.SNAPSHOT_ARCHIVE
           const objects = await getBucketObjects(bucket, `${chain}/latest/`, true);
 
@@ -27,7 +27,7 @@ export default {
         }
 
         if (pathname.startsWith('/latest-v2/')) {
-          const [, chain, ...rest] = pathname.split('/');
+          const [, chain] = pathname.split('/');
           const bucket = env.SNAPSHOT_ARCHIVE_V2
           const objects = await getBucketObjects(bucket, `${chain}/latest-v2/`, true);
 
@@ -42,22 +42,21 @@ export default {
           case '/list/favicon.ico':
             return env.ASSETS.fetch(request);
           case '/list/calibnet/latest-v2':
-            return do_listing_v2(env, env.SNAPSHOT_ARCHIVE_V2, 'calibnet/latest-v2', 'Filecoin Snapshots v2');
+            return do_listing_v2(env, env.SNAPSHOT_ARCHIVE_V2, 'calibnet/latest-v2', 'Calibnet Snapshots v2 (last 14 days)');
           case '/list/mainnet/latest':
-            return do_listing_v2(env, env.SNAPSHOT_ARCHIVE, 'mainnet/latest');
+            return do_listing_v2(env, env.SNAPSHOT_ARCHIVE, 'mainnet/latest', 'Mainnet Latest Snapshots (last 14 days)');
           case '/list/calibnet/latest':
-            return do_listing_v2(env, env.SNAPSHOT_ARCHIVE, 'calibnet/latest');
+            return do_listing_v2(env, env.SNAPSHOT_ARCHIVE, 'calibnet/latest', 'Calibnet Latest Snapshots (last 14 days)');
           case '/list/mainnet/diff':
-            return do_listing_v2(env, env.FOREST_ARCHIVE, 'mainnet/diff', 'Filecoin Snapshots Archive');
+            return do_listing_v2(env, env.FOREST_ARCHIVE, 'mainnet/diff', 'Mainnet Diff Snapshots Archive');
           case '/list/calibnet/diff':
-            return do_listing_v2(env, env.FOREST_ARCHIVE, 'calibnet/diff', 'Filecoin Snapshots Archive');
+            return do_listing_v2(env, env.FOREST_ARCHIVE, 'calibnet/diff', 'Calibnet Diff Snapshots Archive');
           case '/list/mainnet/lite':
-            return do_listing_v2(env, env.FOREST_ARCHIVE, 'mainnet/lite', 'Filecoin Snapshots Archive');
+            return do_listing_v2(env, env.FOREST_ARCHIVE, 'mainnet/lite', 'Mainnet Lite Snapshots Archive');
           case '/list/calibnet/lite':
-            return do_listing_v2(env, env.FOREST_ARCHIVE, 'calibnet/lite', 'Filecoin Snapshots Archive');
+            return do_listing_v2(env, env.FOREST_ARCHIVE, 'calibnet/lite', 'Calibnet Lite Snapshots Archive');
           default:
             return env.ASSETS.fetch(request);
-          // return new Response(`URL not found: ${pathname}`, { status: 404 });
         }
       }
       default: {

@@ -1,3 +1,4 @@
+<!--suppress HtmlUnknownTarget -->
 <div class="snapshot-card bg-gray-800 shadow-lg rounded-2xl p-6 flex flex-col transition hover:shadow-xl" data-key="{{key}}">
   <h2 class="font-mono text-sm text-gray-200 truncate mb-3">
     https://forest-archive.chainsafe.dev{{base}}
@@ -14,11 +15,11 @@
       Download
     </a>
     <button class="text-sm border border-gray-600 px-4 py-2 rounded-lg text-gray-200 hover:bg-gray-700 transition"
-            data-sha256-url="{{shaButtonUrl}}.sha256sum"
+            data-sha256-url="{{base}}.sha256sum"
     onclick="revealSha(this)">
     SHA256
     </button>
-    <button class="{{metaButtonHide}} text-sm border border-gray-600 px-4 py-2 rounded-lg text-gray-200 hover:bg-gray-700 transition"
+    <button class="text-sm border border-gray-600 px-4 py-2 rounded-lg text-gray-200 hover:bg-gray-700 transition"
     data-meta-url="{{base}}.metadata.json"
     onclick="revealMeta(this)">
     Meta

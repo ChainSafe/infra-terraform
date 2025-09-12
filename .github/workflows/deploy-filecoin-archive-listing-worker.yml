@@ -1,0 +1,35 @@
+name: Deploy CF filecoin-snapshot-listing
+on:
+  pull_request:
+    paths:
+      - 'cloudflare/filecoin-snapshot-listing/**'
+      - '.github/workflows/deploy-filecoin-archive-listing-worker.yml'
+  push:
+    paths:
+      - 'cloudflare/filecoin-latest-snapshot/**'
+      - '.github/workflows/deploy-filecoin-archive-listing-worker.yml'
+  workflow_dispatch:
+
+jobs:
+  check-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build packages
+        run: |
+          yarn install
+          yarn lint
+          yarn cf-typegen
+          yarn build:css
+      - name: Deployment check
+        uses: cloudflare/wrangler-action@v3
+        with:
+          workingDirectory: "cloudflare/filecoin-snapshot-listing"
+          command: deploy --dry-run
+      - name: Deploy
+        if: github.ref == 'refs/heads/main' && ( github.event_name == 'push' || github.event_name == 'workflow_dispatch' )
+        uses: cloudflare/wrangler-action@v3
+        with:
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          workingDirectory: "cloudflare/filecoin-snapshot-listing"

@@ -16,9 +16,8 @@ export async function do_listing_v2(env: Env, bucket: R2Bucket, prefix: string, 
 
 		const base = `/archive/${getBucketListingName(bucket, env)}/${obj.key}`;
 		const fileSize = formatFileSize(obj.size);
-    const snap_type = bucket === env.SNAPSHOT_ARCHIVE_V2 ? "v2" : "v1";
 
-		bodyContent += renderSnapshotCardTemplate(obj.key, base, fileSize, obj.uploaded, snap_type);
+		bodyContent += renderSnapshotCardTemplate(obj.key, base, fileSize, obj.uploaded);
 	}
 
 	bodyContent += `</div>`;
