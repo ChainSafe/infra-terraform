@@ -1,7 +1,3 @@
-provider "cloudflare" {
-  api_token = var.secrets.cf_api_token
-}
-
 provider "ovh" {
   endpoint = var.secrets.ovh_endpoint
 

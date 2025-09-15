@@ -40,7 +40,7 @@ inputs = merge(
     # * purpose: Purpose of the resource. E.g. "upload-images"
     # * separator: Name separator (defaults "-")
     #
-    # Resource name will be <org>-<product>-<purpose>-<env>( | -<type of resource>)
+    # Resource name will be <project>-<env>-<purpose>-(|<type of resource>)
     #
     # Example:
     # * name = {
@@ -49,8 +49,8 @@ inputs = merge(
     # }
     # ---------------------------------------------------------------------------------------------------------------------
     name = {
-      purpose = "forest-calibnet"
-      # separator = "-"
+      purpose   = "forest-calibnet"
+      separator = "-"
     }
 
     # ---------------------------------------------------------------------------------------------------------------------
@@ -81,7 +81,7 @@ inputs = merge(
     # }
     # ---------------------------------------------------------------------------------------------------------------------
     servers = {
-      "ns3262103.ip-57-128-233.eu" = "snapshots-backfill"
+      "ns3220252.ip-162-19-82.eu" = "archive"
     }
 
     # ---------------------------------------------------------------------------------------------------------------------
@@ -116,7 +116,6 @@ inputs = merge(
     # Example:
     # * domain_name = "example.org"
     # ---------------------------------------------------------------------------------------------------------------------
-    # domain_name = null
-
+    domain_name = "chainsafe.dev"
   }
 )

@@ -4,7 +4,7 @@ variable "secrets" {
     ovh_app_key      = string
     ovh_app_secret   = string
     ovh_consumer_key = string
-    # cf_api_token     = string
+    cf_api_token     = string
   })
   description = <<DESC
 Authentication to CloudFlare, OVHCloud
@@ -15,7 +15,6 @@ secrets = {
   ovh_app_key = "SecretKey"
   ovh_app_secret = "SecretSecret"
   ovh_consumer_key = "SecretConsumerKey"
-
   cf_api_token = "SecretSecret"
 }
 DESC
@@ -83,8 +82,8 @@ DESC
     apt update
     apt install -y ansible git wget
 
-    git clone "https://github.com/next-gen-infrastructure/ansible-public.git" /tmp/bootstrap
-    # ansible-playbook -i localhost, -c local /tmp/bootstrap/bootstrap.yml --check
+    git clone "https://github.com/ChainSafe/fil-ansible-collection.git" /tmp/bootstrap
+    ansible-playbook -i localhost, -c local /tmp/bootstrap/bootstrap.yml
     SCRIPT
     monitoring   = true
     intervention = true

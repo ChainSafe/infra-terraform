@@ -47,6 +47,9 @@
     },
     "modules/ovh/dedicated-servers": {
       "package-name": "ovh-dedicated-servers"
+    },
+    "modules/ovh/private-network": {
+      "package-name": "ovh-private-network"
     }
   }
 }

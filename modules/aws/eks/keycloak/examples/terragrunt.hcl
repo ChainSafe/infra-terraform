@@ -65,13 +65,13 @@ inputs = {
   # cluster_name = ""
 
   # ---------------------------------------------------------------------------------------------------------------------
-  # Version of keycloak (defaults "25.2.1")
+  # Version of keycloak (defaults "25.2.0")
   #
   # https://github.com/bitnami/charts/blob/main/bitnami/keycloak/Chart.yaml
   #
   # Example:
   # keycloak_version = "25.2.0"
   # ---------------------------------------------------------------------------------------------------------------------
-  # keycloak_version = "25.2.1"
+  # keycloak_version = "25.2.0"
 
 }

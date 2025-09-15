@@ -29,4 +29,11 @@ resource "ovh_dedicated_server" "this" {
     post_installation_script = base64encode(var.configuration.script)
     ssh_key                  = var.configuration.ssh_key
   }
+
+  lifecycle {
+    ignore_changes = [
+      customizations,
+      ovh_subsidiary
+    ]
+  }
 }

@@ -1,10 +1,10 @@
 # ---------------------------------------------------------------------------------------------------------------------
 # You can find latest template for this module at:
-# https://github.com/ChainSafe/infra-terraform/tree/main/modules/ovh/dedicated-servers/examples/
+# https://github.com/ChainSafe/infra-terraform/tree/main/modules/ovh/vrack/examples/
 # ---------------------------------------------------------------------------------------------------------------------
 
 locals {
-  stack_name    = "modules/ovh/dedicated-servers"
+  stack_name    = "modules/ovh/vrack"
   stack_version = "main" # FIXME: Please update version if required
 
   stack_host       = "git::git@github.com"
@@ -64,57 +64,14 @@ inputs = merge(
     # tags = {}
 
     # ---------------------------------------------------------------------------------------------------------------------
-    # The subdomain of application (defaults "")
+    # List of dedicated servers to attach to vRack (defaults [])
     #
     # Example:
-    # * subdomain = "api"
+    # * dedicated_servers = [
+    #   "nsxxxxxx.ip-xx-xx-xx.eu"
+    # ]
     # ---------------------------------------------------------------------------------------------------------------------
-    # subdomain = ""
-
-    # ---------------------------------------------------------------------------------------------------------------------
-    # Dedicate Server IDs and names for configuration (defaults {})
-    #
-    #
-    # Example:
-    # * servers = {
-    #   "nsxxxxxxx.ip-xx-xx-xx.eu" = "api-foo-back"
-    # }
-    # ---------------------------------------------------------------------------------------------------------------------
-    # servers = {}
-
-    # ---------------------------------------------------------------------------------------------------------------------
-    # Configuration of Servers
-    #
-    # Available options:
-    # * os - https://ca.api.ovh.com/v1/dedicated/installationTemplate
-    # * ssh - AWX public key
-    # * script - Post installation script
-    #
-    # Example:
-    # * configuration = {
-    #   os = "ubuntu2404-server_64"
-    #
-    #   script = <<-SCRIPT
-    #   #!/bin/bash
-    #   hostnamectl set-hostname ${hostname}
-    #   SCRIPT
-    # }
-    # ---------------------------------------------------------------------------------------------------------------------
-    # configuration = {
-    #   intervention = true
-    #   monitoring = true
-    #   os = "ubuntu2404-server_64"
-    #   script = "#!/bin/bash\napt update\napt install -y ansible git wget\n\ngit clone \"https://github.com/ChainSafe/fil-ansible-collection.git\" /tmp/bootstrap\nansible-playbook -i localhost, -c local /tmp/bootstrap/bootstrap.yml\n"
-    #   ssh_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEQdyDPqu80ZSimqReNHZhHN7xTSK4CXTHjI2nZlQ911 awx@chainsafe.io"
-    #  }
-
-    # ---------------------------------------------------------------------------------------------------------------------
-    # The name of the zone (defaults null)
-    #
-    # Example:
-    # * domain_name = "example.org"
-    # ---------------------------------------------------------------------------------------------------------------------
-    # domain_name = null
+    dedicated_servers =
 
   }
 )

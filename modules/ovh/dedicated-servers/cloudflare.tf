@@ -1,3 +1,32 @@
+resource "cloudflare_dns_record" "dns_record" {
+  for_each = var.domain_name != null ? var.servers : {}
+
+  zone_id = data.cloudflare_zone.this[0].zone_id
+
+  name = join(".",
+    compact([
+      substr(
+        join(
+          var.name.separator,
+          compact(
+            [
+              local.resource_name,
+              each.value
+            ]
+          )
+      ), 0, 40),
+      var.subdomain,
+      "ovh",
+    ])
+  )
+
+  content = ovh_dedicated_server.this[each.key].ip
+  type    = "A"
+  ttl     = 3600
+}
+
+#
+#
 # resource "cloudflare_dns_record" "dns_record" {
 #   for_each = var.servers
 #
@@ -7,12 +36,13 @@
 #   name = join(".",
 #     compact([
 #       # Name prefix, e.g. "node-2"
-#       each.value,
+#       substr(each.value, 0, 40),
+#       "ovh",
 #       var.subdomain
 #     ])
 #   )
 #
-#   content = data.ovh_dedicated_server.this[each.key].ip
-#   type    = "A"
+#   content = ovh_dedicated_server.this[each.key].ip # FIXME
+#   type    = "AAAA"
 #   ttl     = 3600
 # }
