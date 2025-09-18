@@ -50,6 +50,12 @@
     },
     "modules/ovh/private-network": {
       "package-name": "ovh-private-network"
+    },
+    "modules/grafana-cloud/alerting": {
+      "package-name": "grafana-cloud-alerting"
+    },
+    "modules/grafana-cloud/irm": {
+      "package-name": "grafana-cloud-irm"
     }
   }
 }
