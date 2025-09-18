@@ -1,10 +1,10 @@
 # ---------------------------------------------------------------------------------------------------------------------
 # You can find latest template for this module at:
-# https://github.com/ChainSafe/infra-terraform/tree/main/modules/aws/eks/security/examples/
+# https://github.com/ChainSafe/infra-terraform/tree/main/modules/grafana-cloud/alerting/examples/
 # ---------------------------------------------------------------------------------------------------------------------
 
 locals {
-  stack_name    = "modules/aws/eks/security"
+  stack_name    = "modules/grafana-cloud/alerting"
   stack_version = "main" # FIXME: Please update version if required
 
   stack_host       = "git::git@github.com"
@@ -55,51 +55,56 @@ inputs = {
   # tags = {}
 
   # ---------------------------------------------------------------------------------------------------------------------
-  # Name of the EKS cluster
-  #
-  # If not provided will use account name
+  # List of files local to the project with dashboards (defaults [])
   #
   # Example:
-  # * cluster_name = "dev"
+  # * dashboards = [
+  #   "./dashboards/example.json"
+  # ]
   # ---------------------------------------------------------------------------------------------------------------------
-  # cluster_name = ""
+  dashboards = [
+    "./dashboards/forest.json",
+    "./dashboards/forest-snapshots-node-dashboard.json",
+    "./dashboards/lotus.json",
+    "./dashboards/filecoin-snapshot.json"
+  ]
 
   # ---------------------------------------------------------------------------------------------------------------------
-  # Version of gatekeeper/gatekeeper (defaults "3.20.1")
-  #
-  # https://github.com/open-policy-agent/gatekeeper/blob/master/charts/gatekeeper/Chart.yaml
+  # Configuration of Grafana Cloud Alert rules (defaults {})
   #
   # Example:
-  # * gatekeeper_version = "0.1.12"
+  # * alerts = {
+  #   "FilecoinSnapshotAgeOld" = {
+  #     expr = "probe_snapshot_age_minutes > 240"
+  #     title = "The Latest Filecoin Snapshot is older Than 120 minutes"
+  #     for_duration = "5m"
+  #     datasource_uid = "grafanacloud-prom"
+  #     is_critical = true
+  #     labels = {}
+  #     annotations = {
+  #       description = "The Latest Filecoin {{ $labels.network }} Snapshot is older than 120 minutes (2 hours), current age is {{ $values.A.Value }} minutes."
+  #       summary     = "The Latest Filecoin Snapshot is older Than 120 minutes"
+  #     }
+  #   }
+  # }
   # ---------------------------------------------------------------------------------------------------------------------
-  # gatekeeper_version = "3.20.1"
+  # alerts = {}
 
   # ---------------------------------------------------------------------------------------------------------------------
-  # Extra namespaces to exclude from gatekeeper (defaults [])
+  # Prometheus/Alertmanager rules file (defaults "")
+  #
+  # If provided alert rules would be generated from the file
   #
   # Example:
-  # *
+  # * alerts_file = "./alerts.yaml"
   # ---------------------------------------------------------------------------------------------------------------------
-  # gatekeeper_exclude_ns = []
+  alerts_file = "./alerts.yaml"
 
   # ---------------------------------------------------------------------------------------------------------------------
-  # Version of oauth2-proxy (defaults "8.2.0")
-  #
-  # https://github.com/oauth2-proxy/manifests/blob/main/helm/oauth2-proxy/Chart.yaml
+  # Name of default PagerDuty escalation policy
   #
   # Example:
-  # * oath2_proxy_version = "8.1.0"
+  # * pd_escalation_policy = "test"
   # ---------------------------------------------------------------------------------------------------------------------
-  # oath2_proxy_version = "8.2.0"
-
-  # ---------------------------------------------------------------------------------------------------------------------
-  # Version of dex (defaults "0.24.0")
-  #
-  # https://github.com/dexidp/helm-charts/blob/master/charts/dex/Chart.yaml
-  #
-  # Example:
-  # * dex_version = "8.1.0"
-  # ---------------------------------------------------------------------------------------------------------------------
-  # dex_version = "0.24.0"
-
+  pd_escalation_policy = "Adobrodey-test" # "infra-ep"
 }
