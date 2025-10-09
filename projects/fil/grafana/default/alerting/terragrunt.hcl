@@ -107,4 +107,35 @@ inputs = {
   # * pd_escalation_policy = "test"
   # ---------------------------------------------------------------------------------------------------------------------
   pd_escalation_policy = "Adobrodey-test" # "infra-ep"
+
+  # ---------------------------------------------------------------------------------------------------------------------
+  # Map of k6 checks (defaults {})
+  #
+  # Example:
+  # * k6_checks = {
+  #   "http_check" = {
+  #     type = "http"
+  #     url = "https://example.com"
+  #     probes = ["London", "Paris"]
+  #
+  #     method = "POST"
+  #     status_code = [200, 302]
+  #   }
+  #   "scripted" = {
+  #     type = "scripted"
+  #     url = "https://example.com"
+  #     probes = ["London", "Paris"]
+  #
+  #     script = file("./scripts/scripted.js")
+  #   }
+  # }
+  # ---------------------------------------------------------------------------------------------------------------------
+  k6_checks = {
+    "filecoin-snapshot-check" = {
+      type   = "scripted"
+      url    = "https://chainsafegrafana.com/"
+      probes = ["Paris"]
+      script = "./k6/filecoin-snapshot-check.js"
+    }
+  }
 }

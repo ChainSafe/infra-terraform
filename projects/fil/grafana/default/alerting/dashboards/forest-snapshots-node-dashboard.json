@@ -24,6 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
+  "id": 211,
   "links": [],
   "panels": [
     {
@@ -42,7 +43,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "grafanacloud-prom"
+        "uid": "$datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -55,6 +56,7 @@
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
+            "axisSoftMax": 1,
             "barAlignment": 0,
             "barWidthFactor": 0.6,
             "drawStyle": "line",
@@ -93,13 +95,13 @@
               }
             ]
           },
-          "unit": "sci"
+          "unit": "percentunit"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 10,
-        "w": 19,
+        "h": 7,
+        "w": 10,
         "x": 0,
         "y": 1
       },
@@ -117,32 +119,18 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.2.0-17556714384",
+      "pluginVersion": "12.3.0-18186912471.patch1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "editorMode": "code",
-          "expr": "forest_progress_epoch{job=~\"$job\"}",
-          "legendFormat": "{{job}} - current",
+          "expr": "forest_progress{node=~\"$node\",job=~\"$job\"}",
+          "legendFormat": "{{job}}",
           "range": true,
           "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "grafanacloud-prom"
-          },
-          "editorMode": "code",
-          "expr": "forest_total_epochs{job=~\"$job\"}",
-          "format": "time_series",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "{{job}} - total",
-          "range": true,
-          "refId": "B"
         }
       ],
       "title": "Progress",
@@ -151,7 +139,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "grafanacloud-prom"
+        "uid": "$datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -170,9 +158,9 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
-        "w": 5,
-        "x": 19,
+        "h": 7,
+        "w": 7,
+        "x": 10,
         "y": 1
       },
       "id": 35,
@@ -193,16 +181,16 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.2.0-17556714384",
+      "pluginVersion": "12.3.0-18186912471.patch1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "editorMode": "code",
-          "expr": "increase(forest_success_count{job=~\"$job\"}[12h])",
-          "legendFormat": "{{job}}",
+          "expr": "increase(forest_success_total{node=~\"$node\",job=~\"$job\"}[12h])",
+          "legendFormat": "{{node}} | {{job}}",
           "range": true,
           "refId": "A"
         }
@@ -213,7 +201,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "grafanacloud-prom"
+        "uid": "$datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -236,10 +224,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
-        "w": 5,
-        "x": 19,
-        "y": 6
+        "h": 7,
+        "w": 7,
+        "x": 17,
+        "y": 1
       },
       "id": 37,
       "options": {
@@ -259,29 +247,104 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.2.0-17556714384",
+      "pluginVersion": "12.3.0-18186912471.patch1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "editorMode": "code",
-          "expr": "increase(forest_failure_count{job=~\"$job\"}[12h])",
+          "expr": "increase(forest_failure_total{node=~\"$node\",job=~\"$job\"}[12h])",
           "format": "time_series",
-          "legendFormat": "{{job}}",
+          "legendFormat": "{{node}} | {{job}}",
           "range": true,
           "refId": "A"
         }
       ],
       "title": "Failure Rate",
-      "transparent": true,
       "type": "stat"
     },
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "grafanacloud-prom"
+        "uid": "$datasource"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 17,
+        "x": 0,
+        "y": 8
+      },
+      "id": 44,
+      "options": {
+        "displayMode": "lcd",
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "maxVizHeight": 300,
+        "minVizHeight": 16,
+        "minVizWidth": 8,
+        "namePlacement": "top",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "sizing": "auto",
+        "valueMode": "color"
+      },
+      "pluginVersion": "12.3.0-18186912471.patch1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "expr": "rate(forest_processing_duration_seconds_sum{node=~\"$node\",job=~\"$job\"}[$__interval]) / rate(forest_processing_duration_seconds_count{node=~\"$node\",job=~\"$job\"}[$__interval])",
+          "legendFormat": "{{node}} | {{job}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Average process duration",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
       },
       "description": "Shows the latency distribution of snapshot transfers",
       "fieldConfig": {
@@ -300,10 +363,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 6,
-        "w": 24,
-        "x": 0,
-        "y": 11
+        "h": 8,
+        "w": 7,
+        "x": 17,
+        "y": 8
       },
       "id": 36,
       "options": {
@@ -311,13 +374,13 @@
         "calculation": {
           "xBuckets": {
             "mode": "size",
-            "value": ""
+            "value": "10m"
           },
           "yBuckets": {
             "scale": {
-              "log": 2,
-              "type": "log"
-            }
+              "type": "linear"
+            },
+            "value": "10"
           }
         },
         "cellGap": 1,
@@ -331,7 +394,7 @@
           "reverse": false,
           "scale": "exponential",
           "scheme": "Oranges",
-          "steps": 64
+          "steps": 28
         },
         "exemplars": {
           "color": "rgba(255,0,255,0.7)"
@@ -357,16 +420,16 @@
           "unit": "s"
         }
       },
-      "pluginVersion": "12.2.0-17556714384",
+      "pluginVersion": "12.3.0-18186912471.patch1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum(rate(forest_process_duration_seconds_bucket[15m])) by (le)\n",
+          "expr": "sum(rate(forest_processing_duration_seconds_bucket{node=~\"$node\",job=~\"$job\"}[$__rate_interval])) by (le)",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -382,7 +445,83 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "grafanacloud-prom"
+        "uid": "$datasource"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 17,
+        "x": 0,
+        "y": 16
+      },
+      "id": 45,
+      "options": {
+        "displayMode": "lcd",
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "maxVizHeight": 300,
+        "minVizHeight": 16,
+        "minVizWidth": 8,
+        "namePlacement": "top",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "sizing": "auto",
+        "valueMode": "color"
+      },
+      "pluginVersion": "12.3.0-18186912471.patch1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "expr": "rate(forest_upload_duration_seconds_sum{node=~\"$node\",job=~\"$job\"}[$__interval]) / rate(forest_upload_duration_seconds_count{node=~\"$node\",job=~\"$job\"}[$__interval])",
+          "legendFormat": "{{node}} | {{job}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Average upload duration",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
       },
       "description": "Shows the latency distribution of snapshot transfers",
       "fieldConfig": {
@@ -401,10 +540,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 6,
-        "w": 12,
-        "x": 0,
-        "y": 17
+        "h": 8,
+        "w": 7,
+        "x": 17,
+        "y": 16
       },
       "id": 43,
       "options": {
@@ -458,15 +597,15 @@
           "unit": "s"
         }
       },
-      "pluginVersion": "12.2.0-17556714384",
+      "pluginVersion": "12.3.0-18186912471.patch1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "editorMode": "code",
-          "expr": "sum(increase(forest_upload_duration_seconds_bucket[15m])) by (le)\n",
+          "expr": "sum(increase(forest_upload_duration_seconds_bucket{node=~\"$node\",job=~\"$job\"}[$__rate_interval])) by (le)\n",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -480,112 +619,12 @@
       "type": "heatmap"
     },
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "grafanacloud-prom"
-      },
-      "description": "Shows the latency distribution of snapshot transfers",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "scaleDistribution": {
-              "type": "linear"
-            }
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 6,
-        "w": 12,
-        "x": 12,
-        "y": 17
-      },
-      "id": 44,
-      "options": {
-        "calculate": false,
-        "calculation": {
-          "xBuckets": {
-            "mode": "size",
-            "value": ""
-          },
-          "yBuckets": {
-            "scale": {
-              "log": 2,
-              "type": "log"
-            }
-          }
-        },
-        "cellGap": 1,
-        "cellValues": {
-          "unit": "none"
-        },
-        "color": {
-          "exponent": 0.5,
-          "fill": "dark-orange",
-          "mode": "scheme",
-          "reverse": false,
-          "scale": "exponential",
-          "scheme": "Oranges",
-          "steps": 64
-        },
-        "exemplars": {
-          "color": "rgba(255,0,255,0.7)"
-        },
-        "filterValues": {
-          "le": 1e-9
-        },
-        "legend": {
-          "show": false
-        },
-        "rowsFrame": {
-          "layout": "auto",
-          "value": "Count"
-        },
-        "tooltip": {
-          "mode": "single",
-          "showColorScale": false,
-          "yHistogram": true
-        },
-        "yAxis": {
-          "axisPlacement": "left",
-          "reverse": false,
-          "unit": "s"
-        }
-      },
-      "pluginVersion": "12.2.0-17556714384",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "grafanacloud-prom"
-          },
-          "editorMode": "code",
-          "expr": "sum(increase(forest_download_duration_seconds_bucket[15m])) by (le)\n",
-          "format": "time_series",
-          "hide": false,
-          "instant": false,
-          "interval": "5m",
-          "legendFormat": "{{le}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Download Durations",
-      "type": "heatmap"
-    },
-    {
       "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 23
+        "y": 24
       },
       "id": 29,
       "panels": [],
@@ -595,7 +634,7 @@
     {
       "datasource": {
         "type": "loki",
-        "uid": "grafanacloud-logs"
+        "uid": "$logs"
       },
       "fieldConfig": {
         "defaults": {},
@@ -605,7 +644,7 @@
         "h": 16,
         "w": 24,
         "x": 0,
-        "y": 24
+        "y": 25
       },
       "id": 38,
       "options": {
@@ -619,16 +658,16 @@
         "sortOrder": "Descending",
         "wrapLogMessage": false
       },
-      "pluginVersion": "12.2.0-17556714384",
+      "pluginVersion": "12.3.0-18186912471",
       "targets": [
         {
           "datasource": {
             "type": "loki",
-            "uid": "grafanacloud-logs"
+            "uid": "$logs"
           },
           "direction": "backward",
           "editorMode": "code",
-          "expr": "{service_name=~\"$job\",node=~\"$node\"}",
+          "expr": "{service_name=~\"$job.*\",node=~\"$node\"}",
           "legendFormat": "{{job}}",
           "queryType": "range",
           "refId": "A"
@@ -644,7 +683,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 40
+        "y": 41
       },
       "id": 28,
       "panels": [],
@@ -654,7 +693,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "grafanacloud-prom"
+        "uid": "$datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -679,7 +718,7 @@
         "h": 4,
         "w": 13,
         "x": 0,
-        "y": 41
+        "y": 42
       },
       "id": 33,
       "options": {
@@ -699,12 +738,12 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.2.0-17556714384",
+      "pluginVersion": "12.3.0-18186912471",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "editorMode": "code",
           "expr": "count(node_cpu_seconds_total{node=~'$node',mode=\"idle\"})",
@@ -719,7 +758,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "grafanacloud-prom"
+        "uid": "$datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -744,7 +783,7 @@
         "h": 4,
         "w": 11,
         "x": 13,
-        "y": 41
+        "y": 42
       },
       "id": 32,
       "options": {
@@ -764,12 +803,12 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.2.0-17556714384",
+      "pluginVersion": "12.3.0-18186912471",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "editorMode": "code",
           "expr": "node_memory_MemTotal_bytes{node=~'$node'}",
@@ -784,7 +823,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "grafanacloud-prom"
+        "uid": "$datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -817,7 +856,7 @@
         "h": 5,
         "w": 13,
         "x": 0,
-        "y": 45
+        "y": 46
       },
       "id": 30,
       "options": {
@@ -835,12 +874,12 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "12.2.0-17556714384",
+      "pluginVersion": "12.3.0-18186912471",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "editorMode": "code",
           "expr": "100 - (avg by (node) (irate(node_cpu_seconds_total{mode=\"idle\",node=~'$node'}[$__interval])) * 100)",
@@ -855,7 +894,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "grafanacloud-prom"
+        "uid": "$datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -888,7 +927,7 @@
         "h": 5,
         "w": 11,
         "x": 13,
-        "y": 45
+        "y": 46
       },
       "id": 31,
       "options": {
@@ -906,12 +945,12 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "12.2.0-17556714384",
+      "pluginVersion": "12.3.0-18186912471",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "editorMode": "code",
           "expr": "(1 - (node_memory_MemAvailable_bytes{node=~'$node'} / node_memory_MemTotal_bytes{node=~'$node'})) * 100",
@@ -926,7 +965,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "grafanacloud-prom"
+        "uid": "$datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -989,7 +1028,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 50
+        "y": 51
       },
       "id": 7,
       "maxPerRow": 6,
@@ -1007,14 +1046,14 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.2.0-17556714384",
+      "pluginVersion": "12.3.0-18186912471",
       "repeat": "node",
       "repeatDirection": "h",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "exemplar": true,
           "expr": "sum(irate(node_cpu_seconds_total{mode=\"system\",node=~'$node'}[$interval])) or sum(irate(node_cpu{mode=\"system\",node=~'$node'}[$interval]))",
@@ -1029,7 +1068,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "exemplar": true,
           "expr": "sum(irate(node_cpu_seconds_total{mode=\"user\",node=~'$node'}[$interval])) or sum(irate(node_cpu{mode=\"user\",node=~'$node'}[$interval]))",
@@ -1042,7 +1081,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "exemplar": true,
           "expr": "sum(irate(node_cpu_seconds_total{mode=\"nice\",node=~'$node'}[$interval])) or sum(irate(node_cpu{mode=\"nice\",node=~'$node'}[$interval]))",
@@ -1055,7 +1094,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "exemplar": true,
           "expr": "sum(irate(node_cpu_seconds_total{mode=\"iowait\",node=~'$node'}[$interval])) or sum(irate(node_cpu{mode=\"iowait\",node=~'$node'}[$interval]))",
@@ -1068,7 +1107,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "exemplar": true,
           "expr": "sum(irate(node_cpu_seconds_total{mode=\"steal\",node=~'$node'}[$interval])) or sum(irate(node_cpu{mode=\"steal\",node=~'$node'}[$interval]))",
@@ -1081,7 +1120,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "exemplar": true,
           "expr": "sum(irate(node_cpu_seconds_total{mode=\"idle\",node=~'$node'}[$interval])) or sum(irate(node_cpu{mode=\"idle\",node=~'$node'}[$interval]))",
@@ -1094,7 +1133,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "exemplar": true,
           "expr": "sum(irate(node_cpu_seconds_total{mode=\"irq\",node=~'$node'}[$interval])) or sum(irate(node_cpu{mode=\"irq\",node=~'$node'}[$interval]))",
@@ -1107,7 +1146,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "exemplar": true,
           "expr": "sum(irate(node_cpu_seconds_total{mode=\"softirq\",node=~'$node'}[$interval])) or sum(irate(node_cpu{mode=\"softirq\",node=~'$node'}[$interval]))",
@@ -1120,7 +1159,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "exemplar": true,
           "expr": "sum(irate(node_cpu_seconds_total{mode=\"guest\",node=~'$node'}[$interval])) or sum(irate(node_cpu{mode=\"guest\",node=~'$node'}[$interval]))",
@@ -1137,7 +1176,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "grafanacloud-prom"
+        "uid": "$datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -1201,7 +1240,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 57
+        "y": 58
       },
       "id": 17,
       "maxPerRow": 6,
@@ -1219,14 +1258,14 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.2.0-17556714384",
+      "pluginVersion": "12.3.0-18186912471",
       "repeat": "node",
       "repeatDirection": "h",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "expr": "( node_memory_MemTotal_bytes{node=~'$node'} - node_memory_MemFree_bytes{node=~'$node'} - node_memory_Buffers_bytes{node=~'$node'} - node_memory_Cached_bytes{node=~'$node'} - node_memory_SwapCached_bytes{node=~'$node'} - node_memory_Slab_bytes{node=~'$node'} - node_memory_PageTables_bytes{node=~'$node'} - node_memory_VmallocUsed_bytes{node=~'$node'} ) or ( node_memory_MemTotal{node=~'$node'} - node_memory_MemFree{node=~'$node'} - node_memory_Buffers{node=~'$node'} - node_memory_Cached{node=~'$node'} - node_memory_SwapCached{node=~'$node'} - node_memory_Slab{node=~'$node'} - node_memory_PageTables{node=~'$node'} - node_memory_VmallocUsed{node=~'$node'} )",
           "interval": "",
@@ -1240,7 +1279,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "expr": "node_memory_Buffers_bytes{node=~'$node'} or node_memory_Buffers{node=~'$node'}",
           "interval": "",
@@ -1252,7 +1291,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "expr": "node_memory_Cached_bytes{node=~'$node'} or node_memory_Cached{node=~'$node'}",
           "interval": "",
@@ -1264,7 +1303,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "expr": "node_memory_MemFree_bytes{node=~'$node'} or node_memory_MemFree{node=~'$node'}",
           "hide": false,
@@ -1277,7 +1316,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "expr": "node_memory_Slab_bytes{node=~'$node'} or node_memory_Slab{node=~'$node'}",
           "interval": "",
@@ -1289,7 +1328,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "expr": "node_memory_SwapCached_bytes{node=~'$node'} or node_memory_SwapCached{node=~'$node'}",
           "interval": "",
@@ -1301,7 +1340,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "expr": "node_memory_PageTables_bytes{node=~'$node'} or node_memory_PageTables{node=~'$node'}",
           "interval": "",
@@ -1313,7 +1352,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "expr": "node_memory_VmallocUsed_bytes{node=~'$node'} or node_memory_VmallocUsed{node=~'$node'}",
           "interval": "",
@@ -1326,7 +1365,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "expr": "(node_memory_SwapTotal_bytes{node=~'$node'} - node_memory_SwapFree{node=~'$node'}) or (node_memory_SwapTotal{node=~'$node'} - node_memory_SwapFree{node=~'$node'})",
           "interval": "",
@@ -1339,7 +1378,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "expr": "node_memory_Committed_AS_bytes{node=~'$node'} or node_memory_Committed_AS{node=~'$node'}",
           "interval": "",
@@ -1352,7 +1391,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "expr": "node_memory_Mapped_bytes{node=~'$node'} or node_memory_Mapped{node=~'$node'}",
           "interval": "",
@@ -1364,7 +1403,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "expr": "node_memory_Active_bytes{node=~'$node'} or node_memory_Active{node=~'$node'}",
           "interval": "",
@@ -1377,7 +1416,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "expr": "node_memory_Inactive_bytes{node=~'$node'} or node_memory_Inactive{node=~'$node'}",
           "interval": "",
@@ -1394,7 +1433,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "grafanacloud-prom"
+        "uid": "$datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -1457,7 +1496,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 64
+        "y": 65
       },
       "id": 13,
       "maxPerRow": 6,
@@ -1475,14 +1514,14 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.2.0-17556714384",
+      "pluginVersion": "12.3.0-18186912471",
       "repeat": "node",
       "repeatDirection": "h",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "expr": "node_load1{node=~\"$node\"}",
           "interval": "",
@@ -1500,7 +1539,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "grafanacloud-prom"
+        "uid": "$datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -1565,7 +1604,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 71
+        "y": 72
       },
       "id": 9,
       "maxPerRow": 6,
@@ -1583,17 +1622,18 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.2.0-17556714384",
+      "pluginVersion": "12.3.0-18186912471",
       "repeat": "node",
       "repeatDirection": "h",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "editorMode": "code",
-          "expr": "100.0 - 100 * (node_filesystem_avail_bytes{node=~'$node',device !~'tmpfs',device!~'by-uuid'} / node_filesystem_size_bytes{node=~'$node',device !~'tmpfs',device!~'by-uuid'}) or 100.0 - 100 * (node_filesystem_avail{node=~'$node',device !~'tmpfs',device!~'by-uuid'} / node_filesystem_size{node=~'$node',device !~'tmpfs',device!~'by-uuid'})",
+          "expr": "100.0 - 100 * (node_filesystem_avail_bytes{node=~'$node',mountpoint!~\"^/(etc/.+|rootfs/boot|proc|sys|dev|run|var/lib/.+)\",fstype=~\"ext4|xfs\"} / node_filesystem_size_bytes{node=~'$node',mountpoint!~\"^/(etc/.+|rootfs/boot|proc|sys|dev|run|var/lib/.+)\",fstype=~\"ext4|xfs\"})",
+          "hide": false,
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "{{mountpoint}}",
@@ -1610,7 +1650,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "grafanacloud-prom"
+        "uid": "$datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -1675,7 +1715,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 78
+        "y": 79
       },
       "id": 19,
       "maxPerRow": 6,
@@ -1693,14 +1733,14 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.2.0-17556714384",
+      "pluginVersion": "12.3.0-18186912471",
       "repeat": "node",
       "repeatDirection": "h",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -1721,7 +1761,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "grafanacloud-prom"
+        "uid": "$datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -1784,7 +1824,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 85
+        "y": 86
       },
       "id": 14,
       "maxPerRow": 6,
@@ -1802,14 +1842,14 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.2.0-17556714384",
+      "pluginVersion": "12.3.0-18186912471",
       "repeat": "node",
       "repeatDirection": "h",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -1826,7 +1866,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -1846,7 +1886,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "grafanacloud-prom"
+        "uid": "$datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -1910,7 +1950,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 92
+        "y": 93
       },
       "id": 18,
       "maxPerRow": 6,
@@ -1928,14 +1968,14 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.2.0-17556714384",
+      "pluginVersion": "12.3.0-18186912471",
       "repeat": "node",
       "repeatDirection": "h",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -1950,7 +1990,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -1971,7 +2011,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "grafanacloud-prom"
+        "uid": "$datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -2034,7 +2074,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 99
+        "y": 100
       },
       "id": 25,
       "maxPerRow": 6,
@@ -2052,14 +2092,14 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.2.0-17556714384",
+      "pluginVersion": "12.3.0-18186912471",
       "repeat": "node",
       "repeatDirection": "h",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "editorMode": "code",
           "expr": "node_disk_io_now{node=~\"$node\", device = 'md3'}",
@@ -2079,7 +2119,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "grafanacloud-prom"
+        "uid": "$datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -2143,7 +2183,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 106
+        "y": 107
       },
       "id": 22,
       "maxPerRow": 6,
@@ -2161,14 +2201,14 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.2.0-17556714384",
+      "pluginVersion": "12.3.0-18186912471",
       "repeat": "node",
       "repeatDirection": "h",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "exemplar": true,
           "expr": "irate(node_context_switches_total{node=~\"$node\"}[$interval]) or irate(node_context_switches{node=~\"$node\"}[$interval])",
@@ -2187,7 +2227,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "grafanacloud-prom"
+        "uid": "$datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -2251,7 +2291,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 113
+        "y": 114
       },
       "id": 12,
       "maxPerRow": 6,
@@ -2269,14 +2309,14 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.2.0-17556714384",
+      "pluginVersion": "12.3.0-18186912471",
       "repeat": "node",
       "repeatDirection": "h",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -2293,7 +2333,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -2312,7 +2352,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "grafanacloud-prom"
+        "uid": "$datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -2375,7 +2415,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 120
+        "y": 121
       },
       "id": 21,
       "maxPerRow": 6,
@@ -2393,14 +2433,14 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.2.0-17556714384",
+      "pluginVersion": "12.3.0-18186912471",
       "repeat": "node",
       "repeatDirection": "h",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "expr": "node_netstat_Tcp_CurrEstab{node=~'$node'}",
           "intervalFactor": 2,
@@ -2416,7 +2456,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "grafanacloud-prom"
+        "uid": "$datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -2479,7 +2519,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 127
+        "y": 128
       },
       "id": 23,
       "maxPerRow": 6,
@@ -2497,14 +2537,14 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.2.0-17556714384",
+      "pluginVersion": "12.3.0-18186912471",
       "repeat": "node",
       "repeatDirection": "h",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "exemplar": true,
           "expr": "irate(node_netstat_Udp_InDatagrams{node=~\"$node\"}[$interval])",
@@ -2518,7 +2558,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "exemplar": true,
           "expr": "irate(node_netstat_Udp_InErrors{node=~\"$node\"}[$interval])",
@@ -2531,7 +2571,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "exemplar": true,
           "expr": "irate(node_netstat_Udp_OutDatagrams{node=~\"$node\"}[$interval])",
@@ -2544,7 +2584,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "exemplar": true,
           "expr": "irate(node_netstat_Udp_NoPorts{node=~\"$node\"}[$interval])",
@@ -2561,7 +2601,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "grafanacloud-prom"
+        "uid": "$datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -2625,7 +2665,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 134
+        "y": 135
       },
       "id": 24,
       "maxPerRow": 6,
@@ -2643,14 +2683,14 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.2.0-17556714384",
+      "pluginVersion": "12.3.0-18186912471",
       "repeat": "node",
       "repeatDirection": "h",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "$datasource"
           },
           "editorMode": "code",
           "expr": "node_nf_conntrack_entries_limit{node=~\"$node\"} - node_nf_conntrack_entries{node=~\"$node\"}",
@@ -2667,7 +2707,7 @@
     }
   ],
   "preload": false,
-  "refresh": "10s",
+  "refresh": "auto",
   "schemaVersion": 42,
   "tags": [
     "filecoin",
@@ -2680,19 +2720,17 @@
       {
         "current": {
           "text": [
-            "fil-prod-ovh-forest-mainnet-archive",
-            "fil-prod-ovh-forest-calibnet-archive"
+            "fil-prod-ovh-forest-mainnet-archive-temp"
           ],
           "value": [
-            "fil-prod-ovh-forest-mainnet-archive",
-            "fil-prod-ovh-forest-calibnet-archive"
+            "fil-prod-ovh-forest-mainnet-archive-temp"
           ]
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "grafanacloud-prom"
+          "uid": "$datasource"
         },
-        "definition": "label_values(up,node)",
+        "definition": "label_values(up{node=~\"fil-prod-ovh-.*\"},node)",
         "includeAll": false,
         "label": "Host",
         "multi": true,
@@ -2700,7 +2738,7 @@
         "options": [],
         "query": {
           "qryType": 1,
-          "query": "label_values(up,node)",
+          "query": "label_values(up{node=~\"fil-prod-ovh-.*\"},node)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
@@ -2758,14 +2796,26 @@
       {
         "allowCustomValue": false,
         "current": {
-          "text": [],
-          "value": []
+          "text": [
+            "upload-snapshots",
+            "validate-snapshots",
+            "build-snapshots-latest",
+            "build-snapshots-historic",
+            "compute-state"
+          ],
+          "value": [
+            "upload-snapshots",
+            "validate-snapshots",
+            "build-snapshots-latest",
+            "build-snapshots-historic",
+            "compute-state"
+          ]
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "grafanacloud-prom"
+          "uid": "$datasource"
         },
-        "definition": "label_values(forest_progress_epoch,job)",
+        "definition": "label_values(forest_progress,job)",
         "description": "",
         "includeAll": false,
         "label": "Job Name",
@@ -2774,23 +2824,51 @@
         "options": [],
         "query": {
           "qryType": 1,
-          "query": "label_values(forest_progress_epoch,job)",
+          "query": "label_values(forest_progress,job)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 2,
         "regex": "",
         "sort": 1,
         "type": "query"
+      },
+      {
+        "allowCustomValue": false,
+        "current": {
+          "text": "infra-prometheus",
+          "value": "bdhehxm2shpmod"
+        },
+        "hide": 2,
+        "name": "datasource",
+        "options": [],
+        "query": "prometheus",
+        "refresh": 1,
+        "regex": "",
+        "type": "datasource"
+      },
+      {
+        "allowCustomValue": false,
+        "current": {
+          "text": "infra-loki",
+          "value": "fdhevt81apwqof"
+        },
+        "hide": 2,
+        "name": "logs",
+        "options": [],
+        "query": "loki",
+        "refresh": 1,
+        "regex": "",
+        "type": "datasource"
       }
     ]
   },
   "time": {
-    "from": "now-5m",
+    "from": "now-24h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "browser",
   "title": "Server Metrics - Forest Archive",
   "uid": "forest_archive_metrics",
-  "version": 49
+  "version": 72
 }
