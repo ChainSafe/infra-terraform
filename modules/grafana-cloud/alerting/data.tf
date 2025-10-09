@@ -11,3 +11,5 @@ data "vault_kv_secret_v2" "pagerduty" {
 data "pagerduty_escalation_policy" "this" {
   name = var.pd_escalation_policy
 }
+
+data "grafana_synthetic_monitoring_probes" "this" {}

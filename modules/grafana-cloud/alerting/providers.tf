@@ -1,6 +1,8 @@
 provider "grafana" {
-  url  = "https://${lower(var.default_variables.organization)}.grafana.net/"
-  auth = data.vault_kv_secret_v2.grafana.data.token
+  url             = "https://${lower(var.default_variables.organization)}.grafana.net/"
+  auth            = data.vault_kv_secret_v2.grafana.data.token
+  sm_url          = "https://synthetic-monitoring-api-us-east-0.grafana.net"
+  sm_access_token = data.vault_kv_secret_v2.grafana.data.sm_token
 }
 
 provider "pagerduty" {

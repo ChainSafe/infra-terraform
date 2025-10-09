@@ -61,6 +61,50 @@ DESC
   default     = ""
 }
 
+variable "k6_checks" {
+  type = map(
+    object(
+      {
+        type   = string
+        url    = string
+        probes = set(string)
+
+        # HTTP
+        method      = optional(string, "GET")
+        body        = optional(string, null)
+        status_code = optional(set(number), null)
+
+        # Scripted
+        script = optional(string, "")
+      }
+    )
+  )
+
+  description = <<DESC
+Map of k6 checks (defaults {})
+
+Example:
+* k6_checks = {
+  "http_check" = {
+    type = "http"
+    url = "https://example.com"
+    probes = ["London", "Paris"]
+
+    method = "POST"
+    status_code = [200, 302]
+  }
+  "scripted" = {
+    type = "scripted"
+    url = "https://example.com"
+    probes = ["London", "Paris"]
+
+    script = file("./scripts/scripted.js")
+  }
+}
+DESC
+
+  default = {}
+}
 
 variable "pd_escalation_policy" {
   type = string

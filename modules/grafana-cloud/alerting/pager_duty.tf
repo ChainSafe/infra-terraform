@@ -33,16 +33,6 @@ resource "pagerduty_service" "warning" {
     end_time     = "18:00:00"
     days_of_week = [1, 2, 3, 4, 5]
   }
-
-  scheduled_actions {
-    type       = "urgency_change"
-    to_urgency = "high"
-
-    at {
-      type = "named_time"
-      name = "support_hours_start"
-    }
-  }
 }
 
 resource "pagerduty_service_integration" "critical" {
