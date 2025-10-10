@@ -34,8 +34,8 @@ resource "grafana_rule_group" "this" {
           useBackend          = false
         })
       }
-      no_data_state  = "KeepLast"
-      exec_err_state = "KeepLast"
+      no_data_state  = "OK"
+      exec_err_state = "Alerting"
       labels         = rule.value.labels
       annotations    = rule.value.annotations
 
@@ -73,7 +73,7 @@ resource "grafana_rule_group" "this" {
           useBackend          = false
         })
       }
-      no_data_state  = "NoData"
+      no_data_state  = "OK"
       exec_err_state = "Alerting"
       labels         = rule.value.labels
       annotations    = rule.value.annotations
