@@ -78,7 +78,7 @@ resource "kubernetes_cron_job_v1" "this" {
             }
             container {
               name    = "snapshot"
-              image   = "vault:1.20.1"
+              image   = "hashicorp/vault:1.20.1"
               command = ["/bin/sh"]
               args = [
                 "-ec",
