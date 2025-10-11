@@ -21,14 +21,13 @@ locals {
   keycloak_dns = "auth.${local.domain_name}"
 }
 
-
 resource "helm_release" "this" {
   name      = "keycloak"
   namespace = local.namespace
 
-  chart      = "keycloak"
+  chart      = "keycloakx"
   version    = var.keycloak_version
-  repository = "oci://registry-1.docker.io/bitnamicharts"
+  repository = "oci://ghcr.io/codecentric/helm-charts"
   replace    = true
 
   values = [
@@ -37,6 +36,7 @@ resource "helm_release" "this" {
       {
         keycloak_dns = local.keycloak_dns
         auth_secret  = kubernetes_secret_v1.admin.metadata[0].name
+        db_secret    = data.kubernetes_secret_v1.database_password.metadata[0].name
       }
     )
   ]

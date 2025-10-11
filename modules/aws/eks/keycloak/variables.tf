@@ -11,18 +11,18 @@ DESC
   default     = ""
 }
 
-# https://github.com/bitnami/charts/blob/main/bitnami/keycloak/Chart.yaml
+# https://github.com/codecentric/helm-charts/blob/master/charts/keycloakx/Chart.yaml
 variable "keycloak_version" {
   type = string
 
   description = <<DESC
-Version of keycloak (defaults "25.2.0")
+Version of keycloak (defaults "7.1.4")
 
-https://github.com/bitnami/charts/blob/main/bitnami/keycloak/Chart.yaml
+https://github.com/codecentric/helm-charts/blob/master/charts/keycloakx/Chart.yaml
 
 Example:
-keycloak_version = "25.2.0"
+keycloak_version = "7.1.4"
 DESC
 
-  default = "25.2.0"
+  default = "7.1.4"
 }
