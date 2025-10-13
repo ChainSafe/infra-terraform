@@ -5,7 +5,7 @@ config:
   # language=cfg
   configFile: |-
     provider = "keycloak-oidc"
-    oidcIssuerURL: "${oidc_issuer_url}"
+    oidc_issuer_url = "${oidc_issuer_url}"
     # http_address = "0.0.0.0:4180"
     cookie_secure = true
     cookie_httponly = true
