@@ -37,6 +37,10 @@ resource "keycloak_openid_client_scope" "groups" {
   gui_order              = 1
 }
 
-# resource "keycloak_github" "name" {
-#
-# }
+resource "keycloak_oidc_github_identity_provider" "this" {
+  realm         = keycloak_realm.this.id
+  client_id     = data.vault_kv_secret_v2.keycloak_auth.data.client_id
+  client_secret = data.vault_kv_secret_v2.keycloak_auth.data.client_secret
+  trust_email   = true
+  sync_mode     = "IMPORT"
+}

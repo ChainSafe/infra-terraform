@@ -18,7 +18,6 @@ provider "keycloak" {
   username      = "admin"
   password      = random_uuid.admin.result
   initial_login = false
-
 }
 
 provider "vault" {
