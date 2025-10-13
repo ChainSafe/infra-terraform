@@ -65,6 +65,14 @@ inputs = {
   # dashboards = []
 
   # ---------------------------------------------------------------------------------------------------------------------
+  # Name of default PagerDuty escalation policy
+  #
+  # Example:
+  # * pd_escalation_policy = "test"
+  # ---------------------------------------------------------------------------------------------------------------------
+  pd_escalation_policy =
+
+  # ---------------------------------------------------------------------------------------------------------------------
   # Configuration of Grafana Cloud Alert rules (defaults {})
   #
   # Example:
@@ -95,11 +103,27 @@ inputs = {
   # alerts_file = ""
 
   # ---------------------------------------------------------------------------------------------------------------------
-  # Name of default PagerDuty escalation policy
+  # Map of k6 checks (defaults {})
   #
   # Example:
-  # * pd_escalation_policy = "test"
+  # * k6_checks = {
+  #   "http_check" = {
+  #     type = "http"
+  #     url = "https://example.com"
+  #     probes = ["London", "Paris"]
+  #
+  #     method = "POST"
+  #     status_code = [200, 302]
+  #   }
+  #   "scripted" = {
+  #     type = "scripted"
+  #     url = "https://example.com"
+  #     probes = ["London", "Paris"]
+  #
+  #     script = file("./scripts/scripted.js")
+  #   }
+  # }
   # ---------------------------------------------------------------------------------------------------------------------
-  pd_escalation_policy =
+  # k6_checks = {}
 
 }
