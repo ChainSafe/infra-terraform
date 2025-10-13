@@ -6,7 +6,7 @@ resource "kubernetes_namespace" "this" {
 
 locals {
   namespace = kubernetes_namespace.this.metadata[0].name
-  oauth_dns = "auth.${local.domain_name}"
+  oauth_dns = "internal.${local.domain_name}"
   awx_dns   = "ansible.${local.domain_name}"
   ara_dns   = "ara.${local.domain_name}"
 }
@@ -24,25 +24,6 @@ resource "helm_release" "awx" {
       "${path.module}/values/awx-operator.yaml",
       {
         awx_dns   = local.awx_dns
-        oauth_dns = local.oauth_dns
-      }
-    )
-  ]
-}
-
-resource "helm_release" "ara" {
-  name      = "ara"
-  namespace = local.namespace
-
-  chart      = "ara"
-  version    = var.ara_version
-  repository = "https://lib42.github.io/charts"
-
-  values = [
-    templatefile(
-      "${path.module}/values/ara.yaml",
-      {
-        ara_dns   = local.ara_dns
         oauth_dns = local.oauth_dns
       }
     )

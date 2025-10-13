@@ -18,9 +18,9 @@ ingress:
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
     nginx.ingress.kubernetes.io/proxy-body-size: "50m"
-    # nginx.ingress.kubernetes.io/auth-url: https://${oauth_dns}/oauth2/auth
-    # nginx.ingress.kubernetes.io/auth-signin: https://${oauth_dns}/oauth2/start?rd=$scheme://$host$request_uri
-    # nginx.ingress.kubernetes.io/auth-response-headers: X-Auth-Request-User, X-Auth-Request-Email, X-Auth-Request-Groups
+    nginx.ingress.kubernetes.io/auth-url: https://${oauth_dns}/oauth2/auth
+    nginx.ingress.kubernetes.io/auth-signin: https://${oauth_dns}/oauth2/start?rd=$scheme://$host$request_uri
+    nginx.ingress.kubernetes.io/auth-response-headers: X-Auth-Request-User, X-Auth-Request-Email, X-Auth-Request-Groups
   hosts:
     - ${ara_dns}
 nodeSelector:
