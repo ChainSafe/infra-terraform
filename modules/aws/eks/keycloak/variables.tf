@@ -26,3 +26,17 @@ DESC
 
   default = "7.1.4"
 }
+
+# https://github.com/oauth2-proxy/manifests/blob/main/helm/oauth2-proxy/Chart.yaml
+variable "oath2_proxy_version" {
+  type        = string
+  description = <<DESC
+Version of oauth2-proxy (defaults "8.2.0")
+
+https://github.com/oauth2-proxy/manifests/blob/main/helm/oauth2-proxy/Chart.yaml
+
+Example:
+* oath2_proxy_version = "8.1.0"
+DESC
+  default     = "8.2.0"
+}
