@@ -7,6 +7,11 @@ terraform {
       version = ">= 5.0"
     }
 
+    keycloak = {
+      source  = "keycloak/keycloak"
+      version = "~> 5.0"
+    }
+
     kubernetes = {
       source  = "hashicorp/kubernetes"
       version = ">= 2.0"

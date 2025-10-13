@@ -5,7 +5,7 @@ provider "kubernetes" {
 }
 
 provider "vault" {
-  address               = "https://vault.infra.aws.${var.default_variables.global_hosted_zone}"
+  address               = local.vault_url
   max_lease_ttl_seconds = 1800
 
   auth_login_aws {
@@ -15,14 +15,10 @@ provider "vault" {
   }
 }
 
-# provider "okta" {
-#   org_name    = var.vault_okta_auth_config.okta_org_name
-#   base_url    = var.vault_okta_auth_config.okta_domain
-#   client_id   = var.vault_okta_auth_config.client_id
-#   private_key = var.vault_okta_auth_config.private_key
-#   scopes = [
-#     "okta.groups.read",
-#     "okta.users.read",
-#     # "okta.apps.manage"
-#   ]
-# }
+provider "keycloak" {
+  url           = "https://auth.infra.aws.${var.default_variables.global_hosted_zone}"
+  client_id     = "admin-cli"
+  username      = data.vault_kv_secret_v2.keycloak.data.username
+  password      = data.vault_kv_secret_v2.keycloak.data.password
+  initial_login = false
+}

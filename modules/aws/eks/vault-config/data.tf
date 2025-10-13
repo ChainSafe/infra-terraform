@@ -32,3 +32,12 @@ data "kubernetes_service_account" "this" {
     namespace = "vault"
   }
 }
+
+data "vault_kv_secret_v2" "keycloak" {
+  mount = "infra"
+  name  = "platform/keycloak"
+}
+
+data "keycloak_realm" "this" {
+  realm = "internal"
+}
