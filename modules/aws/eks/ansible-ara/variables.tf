@@ -32,7 +32,7 @@ variable "ara_version" {
   type = string
 
   description = <<DESC
-Version of ara (defaults "0.4.4)
+Version of ara (defaults "0.4.6)
 
 https://github.com/lib42/charts/blob/main/charts/ara/Chart.yaml
 
@@ -40,5 +40,5 @@ Example:
 * ara_version = "0.4.0"
 DESC
 
-  default = "0.4.4"
+  default = "0.4.6"
 }

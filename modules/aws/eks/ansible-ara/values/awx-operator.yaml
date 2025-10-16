@@ -12,6 +12,10 @@ AWX:
         value: "True"
       - setting: DISABLE_LOCAL_AUTH
         value: "True"
+    extra_settings_files:
+      secrets:
+        - name: ${auth_secret}
+          key: keycloak.py
     ingress_type: ingress
     ingress_class_name: nginx
     ingress_hosts:

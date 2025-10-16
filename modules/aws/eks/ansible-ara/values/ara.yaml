@@ -6,8 +6,9 @@ env:
   ARA_READ_LOGIN_REQUIRED: "False"
   ARA_WRITE_LOGIN_REQUIRED: "False"
 
-persistence:
+persistentVolumes:
   enabled: true
+  storageClassName: gp3
 
 ingress:
   enabled: true

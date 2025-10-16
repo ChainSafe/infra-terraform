@@ -93,6 +93,9 @@ persistentVolumes:
   enabled: false
   storageClassName: ""
 
+# Default affinity
+affinity: {}
+
 # Default node selector
 nodeSelector: {}
 
@@ -106,3 +109,11 @@ securityContext:
   fsGroup: 2000
 
 containerSecurityContext: {}
+
+extraObjects: []
+  # - apiVersion: apps/v1
+  #   kind: Deployment
+  #   metadata:
+  #     name: extra-deployment
+  #   spec:
+#     # deployment spec here

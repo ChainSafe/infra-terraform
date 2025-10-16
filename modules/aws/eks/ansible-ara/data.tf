@@ -16,3 +16,12 @@ data "aws_eks_cluster" "this" {
 data "aws_eks_cluster_auth" "this" {
   name = data.aws_eks_cluster.this.name
 }
+
+data "vault_kv_secret_v2" "keycloak" {
+  mount = "infra"
+  name  = "platform/keycloak"
+}
+
+data "keycloak_realm" "this" {
+  realm = "internal"
+}

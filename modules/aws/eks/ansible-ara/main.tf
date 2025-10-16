@@ -6,9 +6,6 @@ resource "kubernetes_namespace" "this" {
 
 locals {
   namespace = kubernetes_namespace.this.metadata[0].name
-  oauth_dns = "internal.${local.domain_name}"
-  awx_dns   = "ansible.${local.domain_name}"
-  ara_dns   = "ara.${local.domain_name}"
 }
 
 resource "helm_release" "awx" {
@@ -23,8 +20,8 @@ resource "helm_release" "awx" {
     templatefile(
       "${path.module}/values/awx-operator.yaml",
       {
-        awx_dns   = local.awx_dns
-        oauth_dns = local.oauth_dns
+        awx_dns     = local.awx_dns
+        auth_secret = kubernetes_secret_v1.awx_auth.metadata[0].name
       }
     )
   ]
