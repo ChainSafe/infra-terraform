@@ -26,6 +26,7 @@ config:
     set_xauthrequest = true
     pass_access_token = true
     set_authorization_header = true
+    pass_authorization_header = true
 
     ## bypass authentication for requests that match the method & path. Format: method=path_regex OR path_regex alone for all methods
     skip_auth_routes = [
@@ -47,10 +48,14 @@ ingress:
     nginx.ingress.kubernetes.io/proxy-body-size: "50m"
   hosts:
     - ${oauth2_proxy_dns}
+
 sessionStorage:
   type: redis
   redis:
     password: redis-password
+htpasswdFile:
+  enabled: true
+  existingSecret: ${htpasswd_secret}
 
 redis:
   enabled: true

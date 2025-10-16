@@ -6,3 +6,12 @@ resource "vault_kv_secret_v2" "this" {
     password = random_uuid.admin.result
   })
 }
+
+resource "vault_kv_secret_v2" "htpasswd" {
+  mount = "infra"
+  name  = "platform/keycloak-htpasswd"
+  data_json = jsonencode({
+    for user in var.oauth2_api_users :
+    user => random_uuid.oauth2[user].result
+  })
+}

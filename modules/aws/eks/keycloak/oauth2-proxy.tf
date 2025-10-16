@@ -36,6 +36,36 @@ resource "kubernetes_secret_v1" "oauth_proxy" {
   }
 }
 
+resource "random_uuid" "oauth2" {
+  for_each = var.oauth2_api_users
+}
+
+resource "random_password" "htpasswd_salt" {
+  length           = 8
+  special          = true
+  override_special = "!@#%&*()-_=+[]{}<>:?"
+}
+resource "htpasswd_password" "this" {
+  for_each = var.oauth2_api_users
+
+  password = random_uuid.oauth2[each.key].result
+  salt     = random_password.htpasswd_salt.result
+}
+
+resource "kubernetes_secret_v1" "htpasswd" {
+  metadata {
+    name      = "oauth2-htpasswd"
+    namespace = local.namespace
+  }
+  data = {
+    "users.txt" = <<-EOF
+      %{for user in var.oauth2_api_users}
+      ${user}:${htpasswd_password.this[user].bcrypt}
+      %{endfor}
+      EOF
+  }
+}
+
 resource "helm_release" "oauth2_proxy" {
   name       = "oauth2"
   chart      = "oauth2-proxy"
@@ -50,6 +80,7 @@ resource "helm_release" "oauth2_proxy" {
         oidc_issuer_url  = "https://${local.keycloak_dns}/realms/${keycloak_realm.this.id}"
         oauth2_proxy_dns = "internal.${local.domain_name}"
         oauth2_secret    = kubernetes_secret_v1.oauth_proxy.metadata[0].name
+        htpasswd_secret  = kubernetes_secret_v1.htpasswd.metadata[0].name
         email_domain     = var.default_variables.email_domain
         domain           = local.domain_name
         upstreams        = []

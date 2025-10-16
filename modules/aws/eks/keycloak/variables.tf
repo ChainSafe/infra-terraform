@@ -40,3 +40,20 @@ Example:
 DESC
   default     = "8.2.0"
 }
+
+variable "oauth2_api_users" {
+  type = set(string)
+
+  description = <<DESC
+List of API users for Oauth2 Proxy auth (defaults ["oauth2"])
+
+Example:
+* oauth2_api_users = [
+  "api"
+]
+DESC
+
+  default = [
+    "oauth2"
+  ]
+}
