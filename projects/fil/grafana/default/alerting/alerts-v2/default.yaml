@@ -1,0 +1,45 @@
+rules:
+  # Dynamic severity levels
+  - alert: Node Metrics Missing
+    expr: |
+      absent_over_time(
+        alloy_build_info{instance =~ "fil-.*"}[5m]
+      )
+    severities:
+      type: gt
+      critical: 1
+      warning: 1
+    for: 10m
+    annotations:
+      description: "Node {{ $labels.instance }} metrics are missing for 5 minutes"
+      summary: "Node metrics are missing"
+
+#  - alert: Node Exceed Memory Limit
+#    expr: |
+#      (
+#        1 - node_memory_MemAvailable_bytes{instance =~ "fil-.*"} /
+#        node_memory_MemTotal_bytes{instance =~ "fil-.*"}
+#      ) * 100
+#    severities:
+#      type: gt
+#      critical: 95
+#      major: 90
+#      minor: 80
+#    annotations:
+#      description: "Node {{ $labels.instance }} is using more than {{ $values.B.Value }}% of its memory"
+#      summary: "Node is using more than {{ $values.B.Value }}% of its memory"
+#
+#  - alert: Node Out Of Disk Space
+#    expr: |
+#      (
+#        node_filesystem_avail_bytes{instance =~ "fil-.*"} /
+#        node_filesystem_size_bytes{instance =~ "fil-.*"}
+#      ) * 100
+#    severities:
+#      type: lt
+#      critical: 5
+#      major: 10
+#      minor: 20
+#    annotations:
+#      description: "Node {{ $labels.instance }} is using less than {{ $values.B.Value }}% of its disk space"
+#      summary: "Node is using less than {{ $values.B.Value }}%% of its disk space"

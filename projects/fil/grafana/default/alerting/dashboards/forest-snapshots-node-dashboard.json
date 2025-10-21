@@ -119,7 +119,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.3.0-18186912471.patch1",
+      "pluginVersion": "12.3.0-18356121373.patch1",
       "targets": [
         {
           "datasource": {
@@ -181,7 +181,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.3.0-18186912471.patch1",
+      "pluginVersion": "12.3.0-18356121373.patch1",
       "targets": [
         {
           "datasource": {
@@ -247,7 +247,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.3.0-18186912471.patch1",
+      "pluginVersion": "12.3.0-18356121373.patch1",
       "targets": [
         {
           "datasource": {
@@ -324,7 +324,7 @@
         "sizing": "auto",
         "valueMode": "color"
       },
-      "pluginVersion": "12.3.0-18186912471.patch1",
+      "pluginVersion": "12.3.0-18356121373.patch1",
       "targets": [
         {
           "datasource": {
@@ -420,7 +420,7 @@
           "unit": "s"
         }
       },
-      "pluginVersion": "12.3.0-18186912471.patch1",
+      "pluginVersion": "12.3.0-18356121373.patch1",
       "targets": [
         {
           "datasource": {
@@ -501,7 +501,7 @@
         "sizing": "auto",
         "valueMode": "color"
       },
-      "pluginVersion": "12.3.0-18186912471.patch1",
+      "pluginVersion": "12.3.0-18356121373.patch1",
       "targets": [
         {
           "datasource": {
@@ -597,7 +597,7 @@
           "unit": "s"
         }
       },
-      "pluginVersion": "12.3.0-18186912471.patch1",
+      "pluginVersion": "12.3.0-18356121373.patch1",
       "targets": [
         {
           "datasource": {
@@ -658,7 +658,7 @@
         "sortOrder": "Descending",
         "wrapLogMessage": false
       },
-      "pluginVersion": "12.3.0-18186912471",
+      "pluginVersion": "12.3.0-18356121373.patch1",
       "targets": [
         {
           "datasource": {
@@ -2870,5 +2870,5 @@
   "timezone": "browser",
   "title": "Server Metrics - Forest Archive",
   "uid": "forest_archive_metrics",
-  "version": 72
+  "version": 73
 }

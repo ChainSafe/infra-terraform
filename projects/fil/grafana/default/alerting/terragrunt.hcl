@@ -54,6 +54,7 @@ inputs = {
   # ---------------------------------------------------------------------------------------------------------------------
   # tags = {}
 
+  project_name = "filecoin"
   # ---------------------------------------------------------------------------------------------------------------------
   # List of files local to the project with dashboards (defaults [])
   #
@@ -98,7 +99,16 @@ inputs = {
   # Example:
   # * alerts_file = "./alerts.yaml"
   # ---------------------------------------------------------------------------------------------------------------------
-  alerts_file = "./alerts.yaml"
+  alerts_files = {
+    "default"            = "./alerts/default.yaml"
+    "filecoin-snapshots" = "./alerts/filecoin-snapshots.yaml"
+    "forest-nodes"       = "./alerts/forest-nodes.yaml"
+    "lotus-nodes"        = "./alerts/lotus-nodes.yaml"
+  }
+
+  alerts_v2 = {
+    "default-v2" = "./alerts-v2/default.yaml"
+  }
 
   # ---------------------------------------------------------------------------------------------------------------------
   # Name of default PagerDuty escalation policy

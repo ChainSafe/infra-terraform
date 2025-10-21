@@ -1,0 +1,73 @@
+rules:
+  # Warning
+  - alert: Node Metrics Missing Warning
+    expr: |
+      absent_over_time(alloy_build_info{
+        instance =~ "fil-.*"
+      }[5m])
+      > 1
+    for: 10m
+    labels:
+      severity: Minor
+    annotations:
+      description: "Node {{ $labels.instance }} metrics are missing for 10 minutes"
+      summary: "Node metrics are missing"
+
+  - alert: Node Exceed Memory Limit Warning
+    expr: |
+      1 - (node_memory_MemAvailable_bytes{instance =~ "fil-.*"} /
+      node_memory_MemTotal_bytes{instance =~ "fil-.*"})
+       > 0.8
+    labels:
+      severity: Minor
+    annotations:
+      description: "Node {{ $labels.instance }} is using more than 80% of its memory"
+      summary: "Node is using more than 80% of its memory"
+
+  - alert: Node Out Of Disk Space Warning
+    expr: |
+      node_filesystem_avail_bytes{instance =~ "fil-.*"} /
+      node_filesystem_size_bytes{instance =~ "fil-.*"}
+      < 0.2
+    labels:
+      severity: Minor
+    annotations:
+      description: "Node {{ $labels.instance }} is using less than 20% of its disk space"
+      summary: "Node is using less than 20% of its disk space"
+
+
+  # Critical
+  - alert: Node Metrics Missing Critical
+    expr: |
+      absent_over_time(alloy_build_info{
+        instance =~ "fil-.*"
+      }[5m])
+      > 1
+    for: 30m
+    labels:
+      severity: Critical
+    annotations:
+      description: "Node {{ $labels.instance }} metrics are missing for 30 minutes"
+      summary: "Node metrics are missing"
+
+  - alert: Node Exceed Memory Limit Critical
+    expr: |
+      1 - (node_memory_MemAvailable_bytes{instance =~ "fil-.*"} /
+      node_memory_MemTotal_bytes{instance =~ "fil-.*"})
+      > 0.95
+    labels:
+      severity: Critical
+    annotations:
+      description: "Node {{ $labels.instance }} is using more than 95% of its memory"
+      summary: "Node is using more than 95% of its memory"
+
+  - alert: Node Out Of Disk Space Critical
+    expr: |
+      node_filesystem_avail_bytes{instance =~ "fil-.*"} /
+      node_filesystem_size_bytes{instance =~ "fil-.*"}
+      < 0.05
+    labels:
+      severity: Critical
+    annotations:
+      description: "Node {{ $labels.instance }} is using less than 5% of its disk space"
+      summary: "Node is using less than 5% of its disk space"

@@ -1,27 +1,28 @@
+datasource: "grafanacloud-prom"
 rules:
-  - alert: FilecoinSnapshotAgeOldWarning
+  - alert: Filecoin Snapshot Age Old Warning
     expr: probe_snapshot_age_minutes > (3 * 60)
     for: 10m
     labels:
-      severity: warning
+      severity: Minor
     annotations:
       description: The Latest Filecoin {{ $labels.network }} Snapshot is older than 360 minutes (3 hours), current age is {{ $values.A.Value }} minutes.
       summary: The Latest Filecoin Snapshot is older than 3 hours
 
-  - alert: FilecoinSnapshotAgeOld
+  - alert: Filecoin Snapshot Age Old Critical
     expr: probe_snapshot_age_minutes > (4 * 60)
     for: 10m
     labels:
-      severity: critical
+      severity: Critical
     annotations:
       description: The Latest Filecoin {{ $labels.network }} Snapshot is older than 240 minutes (4 hours), current age is {{ $values.A.Value }} minutes.
       summary: The Latest Filecoin Snapshot is older than 4 hours
 
-  - alert: FilecoinSnapshotNoUpload
+  - alert: Filecoin Snapshot No Upload
     expr: delta(probe_total_snapshots{}[2h]) < 1
     for: 30m
     labels:
-      severity: warning
+      severity: Minor
     annotations:
       description: The Filecoin snapshot service has not uploaded any snapshots in the past two hours. Action is required to restore functionality.
       summary: No Filecoin snapshots have been uploaded in the past two hours.

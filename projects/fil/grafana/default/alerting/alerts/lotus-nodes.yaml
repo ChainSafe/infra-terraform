@@ -1,0 +1,34 @@
+rules:
+  # Warning
+  - alert: Lotus Node out of sync Warning
+    expr: |
+      lotus_chain_node_height_expected{instance =~ "fil-.*-lotus-.*"} -
+      lotus_chain_node_height{instance =~ "fil-.*-lotus-.*"}
+      > 10
+    labels:
+      severity: Minor
+    annotations:
+      description: "Lotus node {{ $labels.instance }} is out of sync by more than 10 epochs"
+      summary: "Lotus node is out of sync"
+
+  - alert: Lotus Node Tipsets Validation Warning
+    expr: |
+      rate(lotus_chain_node_height{instance =~ "fil-.*-lotus-.*"}[1h]) * 60
+      < 1.5
+    labels:
+      severity: Minor
+    annotations:
+      description: "Lotus node {{ $labels.instance }} is not producing tipsets in time"
+      summary: "Lotus node is not producing tipsets in time"
+
+  # Critical
+  - alert: Lotus Node out of sync Critical
+    expr: |
+      lotus_chain_node_height_expected{instance =~ "fil-.*-lotus-.*"} -
+      lotus_chain_node_height{instance =~ "fil-.*-lotus-.*"}
+      > 100
+    labels:
+      severity: Critical
+    annotations:
+      description: "Lotus node {{ $labels.instance }} is out of sync by more than 100 epochs"
+      summary: "Lotus node is out of sync"

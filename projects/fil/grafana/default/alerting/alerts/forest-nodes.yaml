@@ -1,0 +1,34 @@
+rules:
+  # Warning
+  - alert: Forest Node out of sync Warning
+    expr: |
+      expected_network_height{instance =~ "fil-.*-forest-.*"} -
+      head_epoch{instance =~ "fil-.*-forest-.*"}
+      > 10
+    labels:
+      severity: Minor
+    annotations:
+      description: "Forest node {{ $labels.instance }} is out of sync by more than 10 epochs"
+      summary: "Forest node is out of sync"
+
+  - alert: Forest Node Tipsets Validation Warning
+    expr: |
+      rate(head_epoch{instance =~ "fil-.*-forest-.*"}[1h]) * 60
+      < 1.5
+    labels:
+      severity: Minor
+    annotations:
+      description: "Forest node {{ $labels.instance }} is not producing tipsets in time"
+      summary: "Forest node is not producing tipsets in time"
+
+  # Critical
+  - alert: Forest Node out of sync Critical
+    expr: |
+      expected_network_height{instance =~ "fil-.*-forest-.*"} -
+      head_epoch{instance =~ "fil-.*-forest-.*"}
+      > 100
+    labels:
+      severity: Critical
+    annotations:
+      description: "Forest node {{ $labels.instance }} is out of sync by more than 100 epochs"
+      summary: "Forest node is out of sync"

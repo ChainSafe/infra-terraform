@@ -50,7 +50,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "dark-purple",
@@ -86,7 +87,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.0.0-85518.patch7-85777",
+      "pluginVersion": "12.3.0-18356121373.patch1",
       "targets": [
         {
           "datasource": {
@@ -120,7 +121,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "dark-purple"
+                "color": "dark-purple",
+                "value": 0
               },
               {
                 "color": "dark-blue",
@@ -157,7 +159,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.0.0-85518.patch7-85777",
+      "pluginVersion": "12.3.0-18356121373.patch1",
       "targets": [
         {
           "datasource": {
@@ -213,6 +215,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -227,7 +230,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -259,7 +263,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.0.0-85518.patch7-85777",
+      "pluginVersion": "12.3.0-18356121373.patch1",
       "targets": [
         {
           "editorMode": "code",
@@ -288,7 +292,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -323,7 +328,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.0.0-85518.patch7-85777",
+      "pluginVersion": "12.3.0-18356121373.patch1",
       "targets": [
         {
           "editorMode": "code",
@@ -371,6 +376,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -385,7 +391,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -417,7 +424,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.0.0-85518.patch7-85777",
+      "pluginVersion": "12.3.0-18356121373.patch1",
       "targets": [
         {
           "datasource": {
@@ -470,6 +477,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -484,7 +492,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -516,7 +525,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.0.0-85518.patch7-85777",
+      "pluginVersion": "12.3.0-18356121373.patch1",
       "targets": [
         {
           "datasource": {
@@ -582,6 +591,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -596,7 +606,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -627,7 +638,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.0.0-85518.patch7-85777",
+      "pluginVersion": "12.3.0-18356121373.patch1",
       "targets": [
         {
           "editorMode": "code",
@@ -675,6 +686,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -689,7 +701,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -720,7 +733,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.0.0-85518.patch7-85777",
+      "pluginVersion": "12.3.0-18356121373.patch1",
       "targets": [
         {
           "editorMode": "code",
@@ -749,7 +762,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               }
             ]
           }
@@ -780,7 +794,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.0.0-85518.patch7-85777",
+      "pluginVersion": "12.3.0-18356121373.patch1",
       "targets": [
         {
           "editorMode": "code",
@@ -809,7 +823,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -844,7 +859,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.0.0-85518.patch7-85777",
+      "pluginVersion": "12.3.0-18356121373.patch1",
       "targets": [
         {
           "editorMode": "code",
@@ -905,6 +920,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -919,7 +935,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -950,7 +967,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.0.0-85518.patch7-85777",
+      "pluginVersion": "12.3.0-18356121373.patch1",
       "targets": [
         {
           "datasource": {
@@ -986,7 +1003,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "dark-green"
+                "color": "dark-green",
+                "value": 0
               },
               {
                 "color": "dark-red",
@@ -1021,7 +1039,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.0.0-85518.patch7-85777",
+      "pluginVersion": "12.3.0-18356121373.patch1",
       "targets": [
         {
           "datasource": {
@@ -1057,7 +1075,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -1092,7 +1111,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.0.0-85518.patch7-85777",
+      "pluginVersion": "12.3.0-18356121373.patch1",
       "targets": [
         {
           "datasource": {
@@ -1127,7 +1146,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -1162,7 +1182,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.0.0-85518.patch7-85777",
+      "pluginVersion": "12.3.0-18356121373.patch1",
       "targets": [
         {
           "datasource": {
@@ -1198,7 +1218,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -1233,7 +1254,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.0.0-85518.patch7-85777",
+      "pluginVersion": "12.3.0-18356121373.patch1",
       "targets": [
         {
           "datasource": {
@@ -1253,7 +1274,7 @@
       "type": "stat"
     },
     {
-      "collapsed": true,
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1261,403 +1282,408 @@
         "y": 59
       },
       "id": 41,
-      "panels": [
-        {
-          "datasource": {
-            "name": "prometheus",
-            "type": "prometheus"
-          },
-          "description": "Size of Forest Node database",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "dark-blue"
-                  },
-                  {
-                    "color": "dark-purple",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "gbytes"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 0,
-            "y": 332
-          },
-          "id": 42,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "area",
-            "justifyMode": "auto",
-            "orientation": "auto",
-            "percentChangeColorMode": "standard",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showPercentChange": false,
-            "text": {},
-            "textMode": "auto",
-            "wideLayout": true
-          },
-          "pluginVersion": "12.0.0-85518.patch7-85777",
-          "targets": [
-            {
-              "datasource": {
-                "name": "prometheus",
-                "type": "prometheus"
-              },
-              "editorMode": "code",
-              "exemplar": true,
-              "expr": "forest_db_size{job=\"$job\", instance=\"$host\"} /  1073741824 ",
-              "interval": "",
-              "legendFormat": "Database Size",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "Database Size",
-          "type": "stat"
-        },
-        {
-          "datasource": {
-            "name": "prometheus",
-            "type": "prometheus"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "dark-purple"
-                  },
-                  {
-                    "color": "dark-purple",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 12,
-            "y": 332
-          },
-          "id": 43,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "area",
-            "justifyMode": "auto",
-            "orientation": "auto",
-            "percentChangeColorMode": "standard",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showPercentChange": false,
-            "text": {},
-            "textMode": "auto",
-            "wideLayout": true
-          },
-          "pluginVersion": "12.0.0-85518.patch7-85777",
-          "targets": [
-            {
-              "datasource": {
-                "name": "prometheus",
-                "type": "prometheus"
-              },
-              "disableTextWrap": false,
-              "editorMode": "code",
-              "exemplar": true,
-              "expr": "process_open_fds{job=\"$job\", instance=\"$host\"}",
-              "fullMetaSearch": false,
-              "includeNullMetadata": true,
-              "interval": "",
-              "legendFormat": "Open File Descriptors",
-              "range": true,
-              "refId": "A",
-              "useBackend": false
-            }
-          ],
-          "title": "Open File Descriptors",
-          "type": "stat"
-        },
-        {
-          "datasource": {
-            "name": "prometheus",
-            "type": "prometheus"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisBorderShow": false,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "GiB",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "barWidthFactor": 0.6,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green"
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 0,
-            "y": 340
-          },
-          "id": 44,
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom",
-              "showLegend": false
-            },
-            "tooltip": {
-              "hideZeros": false,
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "pluginVersion": "12.0.0-85518.patch7-85777",
-          "targets": [
-            {
-              "datasource": {
-                "name": "prometheus",
-                "type": "prometheus"
-              },
-              "disableTextWrap": false,
-              "editorMode": "code",
-              "exemplar": true,
-              "expr": "process_virtual_memory_bytes{job=\"$job\", instance=\"$host\"} / 1073741824",
-              "fullMetaSearch": false,
-              "includeNullMetadata": true,
-              "interval": "",
-              "legendFormat": "Process Virtual Memory",
-              "range": true,
-              "refId": "A",
-              "useBackend": false
-            }
-          ],
-          "title": "Process Virtual Memory",
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "name": "prometheus",
-            "type": "prometheus"
-          },
-          "description": "Total user and system CPU time spent.",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green"
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "h"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 12,
-            "y": 340
-          },
-          "id": 45,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "area",
-            "justifyMode": "auto",
-            "orientation": "auto",
-            "percentChangeColorMode": "standard",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showPercentChange": false,
-            "textMode": "auto",
-            "wideLayout": true
-          },
-          "pluginVersion": "12.0.0-85518.patch7-85777",
-          "targets": [
-            {
-              "disableTextWrap": false,
-              "editorMode": "code",
-              "expr": "process_cpu_seconds_total{job=\"$job\", instance=\"$host\"} / 60 / 60",
-              "fullMetaSearch": false,
-              "includeNullMetadata": true,
-              "legendFormat": "Process CPU Time",
-              "range": true,
-              "refId": "A",
-              "useBackend": false
-            }
-          ],
-          "title": "Process CPU Time",
-          "type": "stat"
-        },
-        {
-          "datasource": {
-            "name": "prometheus",
-            "type": "prometheus"
-          },
-          "description": "Total count of tipset range synchronization failures encountered by the Forest node",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "fixedColor": "dark-orange",
-                "mode": "fixed"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green"
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 11,
-            "w": 24,
-            "x": 0,
-            "y": 348
-          },
-          "id": 46,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "area",
-            "justifyMode": "auto",
-            "orientation": "auto",
-            "percentChangeColorMode": "standard",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showPercentChange": false,
-            "textMode": "auto",
-            "wideLayout": true
-          },
-          "pluginVersion": "12.0.0-85518.patch7-85777",
-          "targets": [
-            {
-              "datasource": {
-                "name": "prometheus",
-                "type": "prometheus"
-              },
-              "editorMode": "code",
-              "exemplar": true,
-              "expr": "tipset_range_sync_failure_total_total{job=\"$job\", instance=\"$host\"}",
-              "interval": "",
-              "legendFormat": "Range Sync Failure Count",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "Range Sync Failure Count",
-          "type": "stat"
-        }
-      ],
+      "panels": [],
       "title": "Others",
       "type": "row"
+    },
+    {
+      "datasource": {
+        "name": "prometheus",
+        "type": "prometheus"
+      },
+      "description": "Size of Forest Node database",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-blue",
+                "value": 0
+              },
+              {
+                "color": "dark-purple",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "gbytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 60
+      },
+      "id": 42,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {},
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.3.0-18356121373.patch1",
+      "targets": [
+        {
+          "datasource": {
+            "name": "prometheus",
+            "type": "prometheus"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "forest_db_size{job=\"$job\", instance=\"$host\"} /  1073741824 ",
+          "interval": "",
+          "legendFormat": "Database Size",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Database Size",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "name": "prometheus",
+        "type": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-purple",
+                "value": 0
+              },
+              {
+                "color": "dark-purple",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 60
+      },
+      "id": 43,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {},
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.3.0-18356121373.patch1",
+      "targets": [
+        {
+          "datasource": {
+            "name": "prometheus",
+            "type": "prometheus"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "process_open_fds{job=\"$job\", instance=\"$host\"}",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "interval": "",
+          "legendFormat": "Open File Descriptors",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        }
+      ],
+      "title": "Open File Descriptors",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "name": "prometheus",
+        "type": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "GiB",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 68
+      },
+      "id": 44,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0-18356121373.patch1",
+      "targets": [
+        {
+          "datasource": {
+            "name": "prometheus",
+            "type": "prometheus"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "process_virtual_memory_bytes{job=\"$job\", instance=\"$host\"} / 1073741824",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "interval": "",
+          "legendFormat": "Process Virtual Memory",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        }
+      ],
+      "title": "Process Virtual Memory",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "name": "prometheus",
+        "type": "prometheus"
+      },
+      "description": "Total user and system CPU time spent.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "h"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 68
+      },
+      "id": 45,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.3.0-18356121373.patch1",
+      "targets": [
+        {
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "expr": "process_cpu_seconds_total{job=\"$job\", instance=\"$host\"} / 60 / 60",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "legendFormat": "Process CPU Time",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        }
+      ],
+      "title": "Process CPU Time",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "name": "prometheus",
+        "type": "prometheus"
+      },
+      "description": "Total count of tipset range synchronization failures encountered by the Forest node",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "dark-orange",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 24,
+        "x": 0,
+        "y": 76
+      },
+      "id": 46,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.3.0-18356121373.patch1",
+      "targets": [
+        {
+          "datasource": {
+            "name": "prometheus",
+            "type": "prometheus"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "tipset_range_sync_failure_total_total{job=\"$job\", instance=\"$host\"}",
+          "interval": "",
+          "legendFormat": "Range Sync Failure Count",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Range Sync Failure Count",
+      "type": "stat"
     }
   ],
   "preload": false,
   "refresh": "10s",
-  "schemaVersion": 41,
+  "schemaVersion": 42,
   "tags": [
     "filecoin",
     "forest"
@@ -1698,31 +1724,31 @@
       },
       {
         "current": {
-          "text": "fil-staging-ovh-forest-calibnet-0",
-          "value": "fil-staging-ovh-forest-calibnet-0"
+          "text": "fil-prod-ovh-forest-calibnet-bootnode-0",
+          "value": "fil-prod-ovh-forest-calibnet-bootnode-0"
         },
         "datasource": {
           "uid": "${DS_PROMETHEUS}"
         },
         "definition": "",
-        "includeAll": true,
+        "includeAll": false,
         "label": "Host",
         "name": "host",
         "options": [],
         "query": "label_values(instance)",
         "refresh": 1,
-        "regex": "",
+        "regex": "/fil-.*-forest-.*/",
         "type": "query"
       }
     ]
   },
   "time": {
-    "from": "now-24h",
+    "from": "now-30m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Forest Nodes",
   "uid": "eOh40FR7t",
-  "version": 49
+  "version": 53
 }
