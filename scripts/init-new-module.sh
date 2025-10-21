@@ -42,6 +42,12 @@ touch \
   versions.tf
 popd
 
+echo '
+<!-- BEGIN_TF_DOCS -->
+
+<!-- END_TF_DOCS -->
+' > README.md
+
 ln -sfn "$(pwd)/modules/.global/global-variables.tf" "modules/${1}/global-variables.tf"
 ln -sfn "$(pwd)/modules/.global/global-locals.tf" "modules/${1}/global-locals.tf"
 
