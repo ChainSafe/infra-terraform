@@ -55,52 +55,12 @@ inputs = {
   # tags = {}
 
   # ---------------------------------------------------------------------------------------------------------------------
-  # List of files local to the project with dashboards (defaults [])
+  # Name of the Grafana project
   #
   # Example:
-  # * dashboards = [
-  #   "./dashboards/example.json"
-  # ]
+  # * project_name = "example"
   # ---------------------------------------------------------------------------------------------------------------------
-  # dashboards = []
-
-  # ---------------------------------------------------------------------------------------------------------------------
-  # Name of default PagerDuty escalation policy
-  #
-  # Example:
-  # * pd_escalation_policy = "test"
-  # ---------------------------------------------------------------------------------------------------------------------
-  pd_escalation_policy =
-
-  # ---------------------------------------------------------------------------------------------------------------------
-  # Configuration of Grafana Cloud Alert rules (defaults {})
-  #
-  # Example:
-  # * alerts = {
-  #   "FilecoinSnapshotAgeOld" = {
-  #     expr = "probe_snapshot_age_minutes > 240"
-  #     for_duration = "5m"
-  #     datasource_uid = "grafanacloud-prom"
-  #     is_critical = true
-  #     labels = {}
-  #     annotations = {
-  #       description = "The Latest Filecoin {{ $labels.network }} Snapshot is older than 120 minutes (2 hours), current age is {{ $values.A.Value }} minutes."
-  #       summary     = "The Latest Filecoin Snapshot is older Than 120 minutes"
-  #     }
-  #   }
-  # }
-  # ---------------------------------------------------------------------------------------------------------------------
-  # alerts = {}
-
-  # ---------------------------------------------------------------------------------------------------------------------
-  # Prometheus/Alertmanager rules file (defaults "")
-  #
-  # If provided alert rules would be generated from the file
-  #
-  # Example:
-  # * alerts_file = "./alerts.yaml"
-  # ---------------------------------------------------------------------------------------------------------------------
-  # alerts_file = ""
+  project_name =
 
   # ---------------------------------------------------------------------------------------------------------------------
   # Map of k6 checks (defaults {})
@@ -125,5 +85,69 @@ inputs = {
   # }
   # ---------------------------------------------------------------------------------------------------------------------
   # k6_checks = {}
+
+  # ---------------------------------------------------------------------------------------------------------------------
+  # List of files local to the project with dashboards (defaults [])
+  #
+  # Example:
+  # * dashboards = [
+  #   "./dashboards/example.json"
+  # ]
+  # ---------------------------------------------------------------------------------------------------------------------
+  # dashboards = []
+
+  # ---------------------------------------------------------------------------------------------------------------------
+  # Name of the on-call team (defaults "infra")
+  #
+  # Example:
+  # * oncall_team = "api"
+  # ---------------------------------------------------------------------------------------------------------------------
+  # oncall_team = "infra"
+
+  # ---------------------------------------------------------------------------------------------------------------------
+  # Configuration of Grafana Cloud Alert rules (defaults {})
+  #
+  # Example:
+  # * alerts = {
+  #   "filecoin-snapshot" = {
+  #     "FilecoinSnapshotAgeOld" = {
+  #       expr = "probe_snapshot_age_minutes > 240"
+  #       for_duration = "5m"
+  #       datasource_uid = "grafanacloud-prom"
+  #       is_critical = true
+  #       labels = {}
+  #       annotations = {
+  #         description = "The Latest Filecoin {{ $labels.network }} Snapshot is older than 120 minutes (2 hours), current age is {{ $values.A.Value }} minutes."
+  #         summary     = "The Latest Filecoin Snapshot is older Than 120 minutes"
+  #       }
+  #     }
+  #   }
+  # }
+  # ---------------------------------------------------------------------------------------------------------------------
+  # alerts = {}
+
+  # ---------------------------------------------------------------------------------------------------------------------
+  # Prometheus/Alertmanager rules files (defaults {})
+  #
+  # If provided alert rules would be generated from the file
+  #
+  # Example:
+  # * alerts_files = {
+  #   "filecoin-snapshot" = "./alerts/filecoin-snapshot.yaml"
+  # }
+  # ---------------------------------------------------------------------------------------------------------------------
+  # alerts_files = {}
+
+  # ---------------------------------------------------------------------------------------------------------------------
+  # Grafana rules files (defaults {})
+  #
+  # If provided alert rules would be generated from the file
+  #
+  # Example:
+  # * alerts_v2 = {
+  #   "filecoin-snapshot" = "./alerts-v2/filecoin-snapshot.yaml"
+  # }
+  # ---------------------------------------------------------------------------------------------------------------------
+  # alerts_v2 = {}
 
 }
