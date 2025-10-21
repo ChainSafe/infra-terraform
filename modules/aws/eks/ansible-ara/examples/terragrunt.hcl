@@ -75,13 +75,13 @@ inputs = {
   # awx_operator_version = "3.2.0"
 
   # ---------------------------------------------------------------------------------------------------------------------
-  # Version of ara (defaults "0.4.4)
+  # Version of ara (defaults "0.4.6)
   #
   # https://github.com/lib42/charts/blob/main/charts/ara/Chart.yaml
   #
   # Example:
   # * ara_version = "0.4.0"
   # ---------------------------------------------------------------------------------------------------------------------
-  # ara_version = "0.4.4"
+  # ara_version = "0.4.6"
 
 }
