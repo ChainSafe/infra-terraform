@@ -15,5 +15,6 @@
   "modules/ovh/dedicated-servers": "0.1.0",
   "modules/ovh/private-network": "0.0.0",
   "modules/grafana-cloud/alerting": "0.0.0",
-  "modules/grafana-cloud/irm": "0.0.0"
+  "modules/grafana-cloud/irm": "0.0.0",
+  "modules/grafana-cloud/oncall": "0.0.0"
 }

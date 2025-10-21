@@ -56,6 +56,9 @@
     },
     "modules/grafana-cloud/irm": {
       "package-name": "grafana-cloud-irm"
+    },
+    "modules/grafana-cloud/oncall": {
+      "package-name": "grafana-cloud-oncall"
     }
   }
 }
