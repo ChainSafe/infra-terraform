@@ -97,7 +97,8 @@ resource "grafana_oncall_escalation" "warning_repeat" {
 resource "grafana_oncall_on_call_shift" "this" {
   name                           = var.team_name
   type                           = "rolling_users"
-  start                          = "2025-10-17T00:00:00"
+  start                          = "2025-10-20T07:00:00"
+  time_zone                      = var.time_zone
   duration                       = 60 * 60 * 24 * 7 # 1 week
   frequency                      = "weekly"
   interval                       = 1
@@ -105,9 +106,7 @@ resource "grafana_oncall_on_call_shift" "this" {
   start_rotation_from_user_index = 0
   team_id                        = data.grafana_oncall_team.this.id
 
-  rolling_users = [
-    local.oncall_users
-  ]
+  rolling_users = local.oncall_users
 }
 
 resource "grafana_oncall_schedule" "this" {
@@ -115,7 +114,7 @@ resource "grafana_oncall_schedule" "this" {
   type = "calendar"
 
   team_id   = data.grafana_oncall_team.this.id
-  time_zone = "Europe/Berlin"
+  time_zone = var.time_zone
 
   shifts = [
     grafana_oncall_on_call_shift.this.id

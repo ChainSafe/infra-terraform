@@ -9,7 +9,7 @@ DESC
 }
 
 variable "team_members" {
-  type = set(string)
+  type = list(string)
 
   description = <<DESC
 List of on-call users (defaults [])
@@ -36,4 +36,17 @@ Example:
 DESC
 
   default = []
+}
+
+variable "time_zone" {
+  type = string
+
+  description = <<DESC
+Timezone of the on-call rotation (defaults "UTC")
+
+Example:
+* time_zone = "Europe/Berlin"
+DESC
+
+  default = "UTC"
 }
