@@ -1,4 +1,5 @@
 resource "digitalocean_droplet" "this" {
+  # checkov:skip=CKV_DIO_2:ssh_keys is required non-empty by variable validation
   name   = local.resource_name
   image  = var.image
   region = var.region

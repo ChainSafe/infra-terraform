@@ -25,7 +25,7 @@
 | <a name="input_secrets"></a> [secrets](#input\_secrets) | Authentication to DigitalOcean<br/><br/>Example:<br/>secrets = {<br/>  do\_token = "SecretSecret"<br/>} | <pre>object({<br/>    do_token = string<br/>  })</pre> | n/a | yes |
 | <a name="input_size"></a> [size](#input\_size) | The droplet size slug (defaults "s-1vcpu-2gb")<br/><br/>More details: https://slugs.do-api.dev/<br/><br/>Example:<br/>* size = "s-2vcpu-4gb" | `string` | `"s-1vcpu-2gb"` | no |
 | <a name="input_ssh_allowlist"></a> [ssh\_allowlist](#input\_ssh\_allowlist) | Source CIDRs allowed to reach SSH on port 22 (defaults [], SSH closed)<br/><br/>Example:<br/>* ssh\_allowlist = [<br/>  "203.0.113.10/32"<br/>] | `list(string)` | `[]` | no |
-| <a name="input_ssh_keys"></a> [ssh\_keys](#input\_ssh\_keys) | The list of SSH key IDs or fingerprints already in the DigitalOcean account (defaults [])<br/><br/>Example:<br/>* ssh\_keys = [<br/>  "12:34:45:65:df:ds:3f:2s:14:sx:qw:er:ty:yu:ui:fg"<br/>] | `list(string)` | `[]` | no |
+| <a name="input_ssh_keys"></a> [ssh\_keys](#input\_ssh\_keys) | The list of SSH key IDs or fingerprints already in the DigitalOcean account (at least one)<br/><br/>Example:<br/>* ssh\_keys = [<br/>  "12:34:45:65:df:ds:3f:2s:14:sx:qw:er:ty:yu:ui:fg"<br/>] | `list(string)` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | Map of the custom resource tags (defaults {})<br/><br/>Example:<br/>* tags = {<br/>  Foo = "Bar"<br/>} | `map(string)` | `{}` | no |
 
 ## Outputs

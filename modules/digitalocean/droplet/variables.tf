@@ -69,7 +69,7 @@ variable "ssh_keys" {
   type = list(string)
 
   description = <<DESC
-The list of SSH key IDs or fingerprints already in the DigitalOcean account (defaults [])
+The list of SSH key IDs or fingerprints already in the DigitalOcean account (at least one)
 
 Example:
 * ssh_keys = [
@@ -77,7 +77,10 @@ Example:
 ]
 DESC
 
-  default = []
+  validation {
+    condition     = length(var.ssh_keys) > 0
+    error_message = "At least one SSH key is required, otherwise DigitalOcean sets a root password."
+  }
 }
 
 variable "ssh_allowlist" {

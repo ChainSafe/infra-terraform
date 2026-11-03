@@ -98,14 +98,14 @@ inputs = merge(
     # backups = true
 
     # ---------------------------------------------------------------------------------------------------------------------
-    # The list of SSH key IDs or fingerprints already in the DigitalOcean account (defaults [])
+    # The list of SSH key IDs or fingerprints already in the DigitalOcean account (at least one)
     #
     # Example:
     # * ssh_keys = [
     #   "12:34:45:65:df:ds:3f:2s:14:sx:qw:er:ty:yu:ui:fg"
     # ]
     # ---------------------------------------------------------------------------------------------------------------------
-    # ssh_keys = []
+    ssh_keys =
 
     # ---------------------------------------------------------------------------------------------------------------------
     # Source CIDRs allowed to reach SSH on port 22 (defaults [], SSH closed)

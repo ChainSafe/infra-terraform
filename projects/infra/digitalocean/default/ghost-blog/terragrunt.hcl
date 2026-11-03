@@ -71,7 +71,7 @@ inputs = merge(
     size = "s-2vcpu-4gb"
 
     # ---------------------------------------------------------------------------------------------------------------------
-    # The list of SSH key IDs or fingerprints already in the DigitalOcean account (defaults [])
+    # The list of SSH key IDs or fingerprints already in the DigitalOcean account (at least one)
     #
     # Example:
     # * ssh_keys = [
