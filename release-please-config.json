@@ -59,6 +59,9 @@
     },
     "modules/grafana-cloud/oncall": {
       "package-name": "grafana-cloud-oncall"
+    },
+    "modules/digitalocean/droplet": {
+      "package-name": "digitalocean-droplet"
     }
   }
 }
